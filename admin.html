@@ -1,111 +1,78 @@
-09.05 1:19 AM
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Craveman Owner & Distributor Dashboard</title>
+  <title>Owner Dashboard - Shaik Enterprises</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-3 max-w-md mx-auto text-gray-800 font-sans pb-28">
+<body class="bg-gray-900 text-white p-4 max-w-md mx-auto font-sans">
 
-  <div class="bg-gradient-to-r from-slate-800 via-indigo-950 to-slate-900 text-white p-3.5 rounded-2xl shadow-lg mb-3 text-center relative overflow-hidden">
-    <div class="flex items-center justify-center gap-3">
-      <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md p-1 border-2 border-orange-400 shrink-0">
-        <svg viewBox="0 0 100 100" class="w-10 h-10">
-          <circle cx="50" cy="52" r="31" fill="#f97316" stroke="#0f172a" stroke-width="2.5" />
-          <ellipse cx="40" cy="48" rx="5" ry="7" fill="#1e293b" />
-          <ellipse cx="60" cy="48" rx="5" ry="7" fill="#1e293b" />
-          <path d="M40 58 Q50 70 60 58 Z" fill="#881337" />
-        </svg>
-      </div>
-      <div class="text-left">
-        <h1 class="text-xl font-black tracking-wide uppercase leading-none text-white">OWNER DASHBOARD</h1>
-        <p class="text-[9.5px] font-bold text-orange-300 tracking-wider uppercase mt-1">Shaik Enterprises — Admin Portal</p>
-      </div>
+  <div class="bg-gradient-to-r from-blue-800 to-indigo-900 p-4 rounded-2xl shadow-lg mb-4 text-center">
+    <h1 class="text-xl font-black uppercase text-orange-400">OWNER DASHBOARD</h1>
+    <p class="text-xs text-gray-300">Shaik Enterprises – Admin Portal</p>
+  </div>
+
+  <!-- Live Stats Display -->
+  <div class="grid grid-cols-2 gap-3 mb-4">
+    <div class="bg-gray-800 p-4 rounded-xl text-center border border-gray-700">
+      <p class="text-xs text-gray-400 uppercase font-bold">Total Day Sales</p>
+      <p id="totalSales" class="text-2xl font-black text-green-400 mt-1">₹0</p>
     </div>
-    <div class="mt-2 pt-2 border-t border-white/10 flex justify-between items-center text-[11px] px-1">
-      <span class="font-extrabold text-yellow-300 uppercase tracking-wider">Live Sync Mode</span>
-      <button onclick="loadAdminData()" class="bg-white/20 hover:bg-white/30 text-white px-2.5 py-0.5 rounded-full font-bold text-[10px] active:scale-95 transition"> Refresh Data</button>
+    <div class="bg-gray-800 p-4 rounded-xl text-center border border-gray-700">
+      <p class="text-xs text-gray-400 uppercase font-bold">Total Boxes Sold</p>
+      <p id="totalBoxes" class="text-2xl font-black text-blue-400 mt-1">0 Bxs</p>
     </div>
   </div>
 
-  <div class="grid grid-cols-2 gap-2 mb-3">
-    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-200 text-center">
-      <div class="text-[10px] font-bold text-gray-500 uppercase">Total Day Sales</div>
-      <div id="adminTotalSales" class="text-lg font-black text-emerald-700 mt-1">₹0</div>
+  <div class="bg-gray-800 p-4 rounded-xl space-y-3 border border-gray-700 text-sm">
+    <div class="flex justify-between border-b border-gray-700 pb-2">
+      <span class="text-gray-400">Salesman Name:</span>
+      <span id="salesmanNameDisplay" class="font-bold text-white">--</span>
     </div>
-    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-200 text-center">
-      <div class="text-[10px] font-bold text-gray-500 uppercase">Total Boxes Sold</div>
-      <div id="adminTotalBoxes" class="text-lg font-black text-indigo-700 mt-1">0 Bxs</div>
+    <div class="flex justify-between border-b border-gray-700 pb-2">
+      <span class="text-gray-400">Total Visits:</span>
+      <span id="totalVisits" class="font-bold text-blue-400">0</span>
     </div>
-  </div>
-
-  <div class="grid grid-cols-3 gap-1.5 mb-3 text-center">
-    <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100">
-      <div class="text-[9px] font-bold text-blue-600 uppercase">Visits</div>
-      <div id="adminVisits" class="text-sm font-black text-blue-900 mt-0.5">0</div>
+    <div class="flex justify-between border-b border-gray-700 pb-2">
+      <span class="text-gray-400">Total Orders:</span>
+      <span id="totalOrders" class="font-bold text-green-400">0</span>
     </div>
-    <div class="bg-green-50 p-2.5 rounded-xl border border-green-100">
-      <div class="text-[9px] font-bold text-green-600 uppercase">Orders</div>
-      <div id="adminOrders" class="text-sm font-black text-green-900 mt-0.5">0</div>
-    </div>
-    <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-100">
-      <div class="text-[9px] font-bold text-amber-600 uppercase">Distance</div>
-      <div id="adminKm" class="text-xs font-black text-amber-900 mt-1">0.0 KM</div>
+    <div class="flex justify-between">
+      <span class="text-gray-400">Cash Collection:</span>
+      <span id="totalCash" class="font-bold text-emerald-400">₹0</span>
     </div>
   </div>
 
-  <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 mb-3 space-y-2">
-    <div class="text-xs font-black text-gray-700 uppercase tracking-wide border-b pb-1.5 flex justify-between items-center">
-      <span> Collection Breakdown</span>
-      <span class="text-[10px] text-gray-400 font-normal">Cash + UPI</span>
-    </div>
-    <div class="grid grid-cols-2 gap-2 text-center">
-      <div class="bg-emerald-50 p-2 rounded-xl border border-emerald-100">
-        <div class="text-[10px] font-bold text-emerald-700 uppercase">Total Cash</div>
-        <div id="adminCash" class="text-sm font-black text-emerald-900 mt-0.5">₹0</div>
-      </div>
-      <div class="bg-blue-50 p-2 rounded-xl border border-blue-100">
-        <div class="text-[10px] font-bold text-blue-700 uppercase">Total UPI</div>
-        <div id="adminUpi" class="text-sm font-black text-blue-900 mt-0.5">₹0</div>
-      </div>
-    </div>
-  </div>
+  <button onclick="loadOwnerData()" class="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-slate-900 font-extrabold py-3 rounded-xl shadow active:scale-95 transition uppercase text-xs">
+    🔄 Refresh Data Now
+  </button>
 
-  <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 mb-3 space-y-2">
-    <div class="text-xs font-black text-gray-700 uppercase tracking-wide border-b pb-1.5 flex justify-between items-center">
-      <span> Van Stock Status</span>
-      <button onclick="openGodownLoadModal()" class="text-[10px] bg-indigo-600 text-white font-bold px-2.5 py-1 rounded-lg active:scale-95 transition">Godown Dispatch ➕</button>
-    </div>
-    <div id="adminVanStockSummary" class="text-xs font-semibold text-gray-600">
-      Loading stock status...
-    </div>
-  </div>
+  <script>
+    function loadOwnerData() {
+      const saved = localStorage.getItem('craveman_live_data');
+      if (saved) {
+        const data = JSON.parse(saved);
+        document.getElementById('totalSales').innerText = '₹' + (data.sale || 0);
+        document.getElementById('totalBoxes').innerText = (data.boxes || 0) + ' Bxs';
+        document.getElementById('salesmanNameDisplay').innerText = data.name || 'Raju';
+        document.getElementById('totalVisits').innerText = data.visits || 0;
+        document.getElementById('totalOrders').innerText = data.orders || 0;
+        document.getElementById('totalCash').innerText = '₹' + (data.cash || 0);
+      }
+    }
 
-  <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 space-y-2">
-    <div class="text-xs font-black text-gray-700 uppercase tracking-wide border-b pb-1.5 flex justify-between items-center">
-      <span> Live Sales & Visit Feed</span>
-      <button onclick="clearAdminData()" class="text-[10px] text-red-600 underline font-semibold">Reset Data</button>
-    </div>
-    <div id="adminHistoryFeed" class="space-y-2 max-h-96 overflow-y-auto pr-1">
-      <p class="text-xs text-gray-400 text-center py-4">No records found from salesman yet.</p>
-    </div>
-  </div>
+    // Listen for real-time messages from the salesman tab/device if open together
+    const channel = new BroadcastChannel('craveman_sync_channel');
+    channel.onmessage = (event) => {
+      loadOwnerData();
+    };
 
-  <div id="godownModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-3">
-    <div class="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 max-h-[90vh] flex flex-col">
-      <div class="border-b pb-2 flex justify-between items-center">
-        <div>
-          <h3 class="font-black text-sm text-gray-800 uppercase tracking-wide">Godown Van Stock Dispatch</h3>
-          <p class="text-[10px] text-gray-500">Assign opening stock to salesman van</p>
-        </div>
-        <button onclick="closeGodownLoadModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold">×</button>
-      </div>
-
-      <div id="godownStockList" class="divide-y divide-gray-100 overflow-y-auto pr-1 flex-1 space-y-1.5 text-xs"></div>
-
-      <div class="pt-2 border-t">
+    // Auto-load on open
+    window.onload = loadOwnerData;
+  </script>
+</body>
+</html>
         <button onclick="saveGodownDispatch()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow">
            Dispatch Stock to Van
         </button>
