@@ -8,101 +8,89 @@
 </head>
 <body class="bg-gray-100 p-3 max-w-md mx-auto text-gray-800 font-sans pb-28">
 
-  <!-- Official Craveman Header with Exact Mascot Logo -->
+  <!-- Official Craveman Header -->
   <div class="bg-gradient-to-r from-blue-700 via-indigo-800 to-blue-900 text-white p-3.5 rounded-2xl shadow-lg mb-3 text-center relative overflow-hidden">
     <div class="flex items-center justify-center gap-3">
-      <!-- Craveman Official Character Badge -->
       <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md p-1 border-2 border-orange-400 shrink-0">
         <svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Green Sprout/Leaves on Head -->
           <path d="M50 20 C40 6, 28 10, 42 22 Z" fill="#15803d" stroke="#0f172a" stroke-width="1.5" />
           <path d="M50 20 C60 6, 72 10, 58 22 Z" fill="#22c55e" stroke="#0f172a" stroke-width="1.5" />
-          
-          <!-- Little green legs/shoes -->
-          <ellipse cx="44" cy="85" rx="5" ry="3" fill="#16a34a" stroke="#0f172a" stroke-width="1.2"/>
-          <ellipse cx="56" cy="85" rx="5" ry="3" fill="#16a34a" stroke="#0f172a" stroke-width="1.2"/>
-
-          <!-- Orange Round Body/Head with Ring -->
           <circle cx="50" cy="52" r="31" fill="#f97316" stroke="#0f172a" stroke-width="2.5" />
-          <circle cx="50" cy="52" r="26" fill="none" stroke="#ea580c" stroke-width="2" stroke-dasharray="3,2" />
-
-          <!-- Left Hand Waving (Green Glove) -->
-          <path d="M22 46 Q16 38 18 32 Q25 36 26 44 Z" fill="#22c55e" stroke="#0f172a" stroke-width="1.5" />
-          <!-- Right Hand (Green Glove) -->
-          <circle cx="78" cy="55" r="5" fill="#22c55e" stroke="#0f172a" stroke-width="1.5" />
-
-          <!-- Left Eye: Winking 😉 -->
-          <path d="M37 46 Q42 42 47 47" fill="none" stroke="#0f172a" stroke-width="2.8" stroke-linecap="round" />
-
-          <!-- Right Eye: Wide Open & Happy -->
-          <ellipse cx="61" cy="46" rx="5" ry="7" fill="#0f172a" />
-          <circle cx="59" cy="44" r="2.2" fill="#ffffff" />
-
-          <!-- Cheeks -->
-          <circle cx="35" cy="54" r="4" fill="#fb923c" />
-          <circle cx="67" cy="54" r="4" fill="#fb923c" />
-
-          <!-- Big Cartoon Smile -->
           <path d="M40 56 Q51 72 63 56 Q51 61 40 56 Z" fill="#dc2626" stroke="#0f172a" stroke-width="1.5" />
-          <!-- Teeth / Tongue highlight -->
-          <path d="M47 62 Q52 60 57 62 Q52 68 47 62 Z" fill="#fda4af" />
         </svg>
       </div>
-
       <div class="text-left">
-        <h1 class="text-2xl font-black tracking-wide uppercase leading-none text-white drop-shadow-sm flex items-center gap-1">
+        <h1 class="text-2xl font-black tracking-wide uppercase leading-none text-white flex items-center gap-1">
           <span>CRAVEMAN</span>
           <span class="text-[9px] font-bold text-orange-300 border border-orange-400 px-1 py-0.2 rounded">TM</span>
         </h1>
-        <div class="inline-block bg-emerald-600 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded tracking-wider uppercase mt-1">
+        <div class="inline-block bg-emerald-600 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase mt-1">
           We Care For Your Cravings
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Top Floating Complaint / Options Menu Button (3 Dots style) -->
-    <div class="absolute top-3 right-3">
-      <button onclick="openMenuDropdown()" class="bg-white/20 hover:bg-white/30 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm active:scale-95 transition">
-        ⋮
-      </button>
-      <!-- Dropdown Menu -->
-      <div id="topDropdownMenu" class="hidden absolute right-0 mt-1 w-44 bg-white text-gray-800 rounded-xl shadow-xl border z-50 py-1 text-left text-xs font-semibold">
-        <button onclick="openFreezerComplaintModal(); closeMenuDropdown();" class="w-full text-left px-3 py-2 hover:bg-gray-100 flex items-center gap-2">
-          <span>❄️ Report Freezer Issue</span>
-        </button>
-        <button onclick="openCalendarModal(); closeMenuDropdown();" class="w-full text-left px-3 py-2 hover:bg-gray-100 flex items-center gap-2">
-          <span>📅 Attendance Calendar</span>
-        </button>
-        <button onclick="openHistoryModal(); closeMenuDropdown();" class="w-full text-left px-3 py-2 hover:bg-gray-100 flex items-center gap-2">
-          <span>📋 Today's Visit Log</span>
-        </button>
+  <!-- INPUT FORM SECTION -->
+  <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-3 space-y-3">
+    <h2 class="text-xs font-bold text-gray-700 uppercase border-b pb-2">📦 Enter Today's Data</h2>
+    
+    <div>
+      <label class="text-[11px] font-bold text-gray-600 uppercase">Salesman Name</label>
+      <input id="salesmanName" type="text" value="Raju" class="w-full border p-2 rounded-lg mt-1 text-xs bg-gray-50 font-medium">
+    </div>
+
+    <div class="grid grid-cols-2 gap-2">
+      <div>
+        <label class="text-[11px] font-bold text-gray-600 uppercase">Visits</label>
+        <input id="inputVisits" type="number" value="2" class="w-full border p-2 rounded-lg mt-1 text-xs bg-gray-50 font-medium">
+      </div>
+      <div>
+        <label class="text-[11px] font-bold text-gray-600 uppercase">Orders</label>
+        <input id="inputOrders" type="number" value="2" class="w-full border p-2 rounded-lg mt-1 text-xs bg-gray-50 font-medium">
       </div>
     </div>
 
-    <div class="mt-2.5 pt-2 border-t border-white/10 flex justify-between items-center text-[11px] px-1">
-      <span class="font-extrabold text-yellow-300 uppercase tracking-wider">Shaik Enterprises</span>
-      <span class="bg-white/20 text-white px-2 py-0.5 rounded-full font-medium text-[10px]">Official Distributor</span>
+    <div class="grid grid-cols-2 gap-2">
+      <div>
+        <label class="text-[11px] font-bold text-gray-600 uppercase">Boxes Sold</label>
+        <input id="inputBoxes" type="number" value="20" class="w-full border p-2 rounded-lg mt-1 text-xs bg-gray-50 font-medium">
+      </div>
+      <div>
+        <label class="text-[11px] font-bold text-gray-600 uppercase">Total Sale (₹)</label>
+        <input id="inputSale" type="number" value="3840" class="w-full border p-2 rounded-lg mt-1 text-xs bg-gray-50 font-medium">
+      </div>
     </div>
+
+    <button onclick="syncDataToOwner()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow active:scale-95 transition text-sm">
+      🚀 Submit & Sync to Owner Dashboard
+    </button>
+    <p id="syncStatus" class="text-center text-xs text-green-600 font-semibold"></p>
   </div>
 
-  <!-- ATTENDANCE & DUTY PUNCH (IN / OUT) -->
-  <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 mb-3 space-y-2.5">
-    <div class="flex justify-between items-center border-b pb-2">
-      <span class="text-xs font-black text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-        <span>🕒 Attendance Punch</span>
-      </span>
-      <span id="dutyBadge" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">NOT STARTED ⚪</span>
-    </div>
+  <script>
+    function syncDataToOwner() {
+      const data = {
+        name: document.getElementById('salesmanName').value,
+        visits: Number(document.getElementById('inputVisits').value),
+        orders: Number(document.getElementById('inputOrders').value),
+        boxes: Number(document.getElementById('inputBoxes').value),
+        sale: Number(document.getElementById('inputSale').value),
+        cash: Number(document.getElementById('inputSale').value),
+        time: new Date().toLocaleTimeString()
+      };
 
-    <div>
-      <label class="text-[11px] font-bold text-gray-600 uppercase">Salesman Name</label>
-      <input id="salesman" type="text" placeholder="Enter your full name" class="w-full border p-2 rounded-lg mt-0.5 text-xs bg-gray-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-500">
-    </div>
+      // Using localStorage combined with a BroadcastChannel for seamless live updating
+      localStorage.setItem('craveman_live_data', JSON.stringify(data));
+      
+      const channel = new BroadcastChannel('craveman_sync_channel');
+      channel.postMessage(data);
 
-    <!-- Attendance Selfie Section -->
-    <div id="selfieBox" class="border border-dashed border-indigo-200 bg-indigo-50/50 p-2.5 rounded-xl text-center">
-      <input type="file" id="selfieInput" accept="image/*" capture="user" onchange="previewSelfie(event)" class="hidden">
-      <div class="flex items-center justify-center gap-2">
+      document.getElementById('syncStatus').innerText = 'Data successfully synced with Owner Dashboard!';
+    }
+  </script>
+</body>
+</html>
         <button id="selfieBtn" type="button" onclick="document.getElementById('selfieInput').click()" class="bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow active:scale-95 transition flex items-center gap-1">
           <span>🤳 Take Attendance Selfie</span>
         </button>
