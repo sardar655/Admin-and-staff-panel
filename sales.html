@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Craveman DSR & Field Sales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-3 max-w-md mx-auto text-gray-800 font-sans pb-28">
+
+  <!-- Official Craveman Header with Exact Mascot Logo -->
+  <div class="bg-gradient-to-r from-blue-700 via-indigo-800 to-blue-900 text-white p-3.5 rounded-2xl shadow-lg mb-3 text-center relative overflow-hidden">
+    <div class="flex items-center justify-center gap-3">
+      <!-- Craveman Official Character Badge -->
+      <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md p-1 border-2 border-orange-400 shrink-0">
+        <svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Green Sprout/Leaves on Head -->
+          <path d="M50 20 C40 6, 28 10, 42 22 Z" fill="#15803d" stroke="#0f172a" stroke-width="1.5" />
+          <path d="M50 20 C60 6, 72 10, 58 22 Z" fill="#22c55e" stroke="#0f172a" stroke-width="1.5" />
+          
+          <!-- Little green legs/shoes -->
+          <ellipse cx="44" cy="85" rx="5" ry="3" fill="#16a34a" stroke="#0f172a" stroke-width="1.2"/>
+          <ellipse cx="56" cy="85" rx="5" ry="3" fill="#16a34a" stroke="#0f172a" stroke-width="1.2"/>
+
+          <!-- Orange Round Body/Head with Ring -->
+          <circle cx="50" cy="52" r="31" fill="#f97316" stroke="#0f172a" stroke-width="2.5" />
+          <circle cx="50" cy="52" r="26" fill="none" stroke="#ea580c" stroke-width="2" stroke-dasharray="3,2" />
+
+          <!-- Left Hand Waving (Green Glove) -->
+          <path d="M22 46 Q16 38 18 32 Q25 36 26 44 Z" fill="#22c55e" stroke="#0f172a" stroke-width="1.5" />
+          <!-- Right Hand (Green Glove) -->
+          <circle cx="78" cy="55" r="5" fill="#22c55e" stroke="#0f172a" stroke-width="1.5" />
+
+          <!-- Left Eye: Winking 😉 -->
+          <path d="M37 46 Q42 42 47 47" fill="none" stroke="#0f172a" stroke-width="2.8" stroke-linecap="round" />
+
+          <!-- Right Eye: Wide Open & Happy -->
+          <ellipse cx="61" cy="46" rx="5" ry="7" fill="#0f172a" />
+          <circle cx="59" cy="44" r="2.2" fill="#ffffff" />
+
+          <!-- Cheeks -->
+          <circle cx="35" cy="54" r="4" fill="#fb923c" />
+          <circle cx="67" cy="54" r="4" fill="#fb923c" />
+
+          <!-- Big Cartoon Smile -->
+          <path d="M40 56 Q51 72 63 56 Q51 61 40 56 Z" fill="#dc2626" stroke="#0f172a" stroke-width="1.5" />
+          <!-- Teeth / Tongue highlight -->
+          <path d="M47 62 Q52 60 57 62 Q52 68 47 62 Z" fill="#fda4af" />
+        </svg>
+      </div>
+
+      <div class="text-left">
+        <h1 class="text-2xl font-black tracking-wide uppercase leading-none text-white drop-shadow-sm flex items-center gap-1">
+          <span>CRAVEMAN</span>
+          <span class="text-[9px] font-bold text-orange-300 border border-orange-400 px-1 py-0.2 rounded">TM</span>
+        </h1>
+        <div class="inline-block bg-emerald-600 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded tracking-wider uppercase mt-1">
+          We Care For Your Cravings
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Floating Complaint / Options Menu Button (3 Dots style) -->
+    <div class="absolute top-3 right-3">
+      <button onclick="openMenuDropdown()" class="bg-white/20 hover:bg-white/30 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm active:scale-95 transition">
+        ⋮
+      </button>
+      <!-- Dropdown Menu -->
+      <div id="topDropdownMenu" class="hidden absolute right-0 mt-1 w-44 bg-white text-gray-800 rounded-xl shadow-xl border z-50 py-1 text-left text-xs font-semibold">
+        <button onclick="openFreezerComplaintModal(); closeMenuDropdown();" class="w-full text-left px-3 py-2 hover:bg-gray-100 flex items-center gap-2">
+          <span>❄️ Report Freezer Issue</span>
+        </button>
+        <button onclick="openCalendarModal(); closeMenuDropdown();" class="w-full text-left px-3 py-2 hover:bg-gray-100 flex items-center gap-2">
+          <span>📅 Attendance Calendar</span>
+        </button>
+        <button onclick="openHistoryModal(); closeMenuDropdown();" class="w-full text-left px-3 py-2 hover:bg-gray-100 flex items-center gap-2">
+          <span>📋 Today's Visit Log</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-2.5 pt-2 border-t border-white/10 flex justify-between items-center text-[11px] px-1">
+      <span class="font-extrabold text-yellow-300 uppercase tracking-wider">Shaik Enterprises</span>
+      <span class="bg-white/20 text-white px-2 py-0.5 rounded-full font-medium text-[10px]">Official Distributor</span>
+    </div>
+  </div>
+
+  <!-- ATTENDANCE & DUTY PUNCH (IN / OUT) -->
+  <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 mb-3 space-y-2.5">
+    <div class="flex justify-between items-center border-b pb-2">
+      <span class="text-xs font-black text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+        <span>🕒 Attendance Punch</span>
+      </span>
+      <span id="dutyBadge" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">NOT STARTED ⚪</span>
+    </div>
+
+    <div>
+      <label class="text-[11px] font-bold text-gray-600 uppercase">Salesman Name</label>
+      <input id="salesman" type="text" placeholder="Enter your full name" class="w-full border p-2 rounded-lg mt-0.5 text-xs bg-gray-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Attendance Selfie Section -->
+    <div id="selfieBox" class="border border-dashed border-indigo-200 bg-indigo-50/50 p-2.5 rounded-xl text-center">
+      <input type="file" id="selfieInput" accept="image/*" capture="user" onchange="previewSelfie(event)" class="hidden">
+      <div class="flex items-center justify-center gap-2">
+        <button id="selfieBtn" type="button" onclick="document.getElementById('selfieInput').click()" class="bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow active:scale-95 transition flex items-center gap-1">
+          <span>🤳 Take Attendance Selfie</span>
+        </button>
+        <span id="selfieStatus" class="text-[11px] text-gray-500 font-medium">Selfie required</span>
+      </div>
+      <img id="selfiePreview" class="hidden mx-auto mt-2 h-20 w-20 rounded-full border-2 border-indigo-500 object-cover shadow" alt="Attendance Selfie">
+    </div>
+
+    <!-- Punch In & Out Buttons -->
+    <div class="grid grid-cols-2 gap-2 pt-1">
+      <button id="punchInBtn" onclick="handlePunchIn()" class="bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 disabled:text-gray-500 text-white font-bold py-2 rounded-xl text-xs shadow active:scale-95 transition flex items-center justify-center gap-1">
+        <span>🟢 Punch IN (Start Duty)</span>
+      </button>
+      <button id="punchOutBtn" onclick="handlePunchOut()" class="bg-rose-600 hover:bg-rose-700 disabled:bg-gray-300 disabled:text-gray-500 text-white font-bold py-2 rounded-xl text-xs shadow active:scale-95 transition flex items-center justify-center gap-1">
+        <span>🔴 Punch OUT (End Duty)</span>
+      </button>
+    </div>
+
+    <div id="punchTimesInfo" class="text-[10px] text-gray-500 text-center font-semibold pt-1 border-t">
+      IN: <span id="inTimeText" class="text-gray-800 font-bold">--:--</span> | OUT: <span id="outTimeText" class="text-gray-800 font-bold">--:--</span>
+    </div>
+  </div>
+
+  <!-- Live Daily Performance Dashboard -->
+  <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-200 mb-3">
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Today's Live Performance</span>
+      <div class="flex items-center gap-2">
+        <button onclick="openHistoryModal()" class="text-[11px] bg-blue-50 text-blue-600 border border-blue-200 font-bold px-2 py-0.5 rounded-lg active:scale-95 transition">📋 History</button>
+        <button onclick="resetDayData()" class="text-[11px] text-red-600 font-semibold underline">Reset</button>
+      </div>
+    </div>
+    <div class="grid grid-cols-5 gap-1.5 text-center">
+      <div class="bg-blue-50 p-2 rounded-xl border border-blue-100">
+        <div class="text-[9px] text-blue-600 font-bold uppercase">Visits</div>
+        <div id="statVisits" class="text-sm font-black text-blue-900">0</div>
+      </div>
+      <div class="bg-green-50 p-2 rounded-xl border border-green-100">
+        <div class="text-[9px] text-green-600 font-bold uppercase">Orders</div>
+        <div id="statOrders" class="text-sm font-black text-green-900">0</div>
+      </div>
+      <div class="bg-purple-50 p-2 rounded-xl border border-purple-100">
+        <div class="text-[9px] text-purple-600 font-bold uppercase">Boxes</div>
+        <div id="statBoxes" class="text-sm font-black text-purple-900">0</div>
+      </div>
+      <div class="bg-amber-50 p-2 rounded-xl border border-amber-100">
+        <div class="text-[9px] text-amber-600 font-bold uppercase">Sale (₹)</div>
+        <div id="statSales" class="text-xs font-black text-amber-900 mt-1">0</div>
+      </div>
+      <div class="bg-emerald-50 p-2 rounded-xl border border-emerald-100">
+        <div class="text-[9px] text-emerald-600 font-bold uppercase">KM</div>
+        <div id="statKm" class="text-xs font-black text-emerald-900 mt-1">0.0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Van Stock Loading Status Bar -->
+  <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-200 mb-3 flex justify-between items-center">
+    <div>
+      <div class="text-[10px] font-bold text-gray-500 uppercase">Van Stock Status</div>
+      <div id="vanStockSummaryText" class="text-xs font-black text-indigo-700">Not Loaded (Click to Load)</div>
+    </div>
+    <button onclick="openVanStockModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow active:scale-95 transition">
+      🚚 Manage Van Stock
+    </button>
+  </div>
+
+  <!-- Outlet Selection & Manage / Delete Module -->
+  <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-3 space-y-3">
+    <div class="flex justify-between items-center border-b pb-2">
+      <label class="text-xs font-bold text-gray-700 uppercase">🏪 Outlet Selection</label>
+      <div class="flex items-center gap-1.5">
+        <button type="button" onclick="openManageOutletsModal()" class="text-[11px] font-bold text-gray-600 bg-gray-100 border border-gray-200 px-2 py-1 rounded-lg hover:bg-gray-200 active:scale-95 transition">⚙️ Manage</button>
+        <button type="button" onclick="openNewOutletModal()" class="text-[11px] font-bold text-blue-600 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-lg hover:bg-blue-100 active:scale-95 transition flex items-center gap-1"><span>➕ Add New</span></button>
+      </div>
+    </div>
+
+    <!-- Select Existing Outlet with Direct Delete Button -->
+    <div>
+      <label class="text-[11px] font-bold text-gray-600 uppercase">Choose Saved Shop</label>
+      <div class="flex items-center gap-1.5 mt-1">
+        <select id="outletDropdown" onchange="onSelectSavedOutlet()" class="w-full border p-2 rounded-lg text-xs bg-gray-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-500 font-semibold">
+          <option value="">-- Select from saved outlets --</option>
+        </select>
+        <button type="button" id="deleteSelectedOutletBtn" onclick="deleteSelectedOutlet()" title="Delete this outlet" class="hidden bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 px-2.5 py-2 rounded-lg text-xs font-bold active:scale-95 transition">
+          🗑️
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2">
+      <div>
+        <label class="text-[11px] font-bold text-gray-600 uppercase">Shop Name</label>
+        <input id="shopName" type="text" placeholder="Outlet name" class="w-full border p-2 rounded-lg mt-1 text-xs bg-gray-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+      </div>
+      <div>
+        <label class="text-[11px] font-bold text-gray-600 uppercase">Beat / Area</label>
+        <input id="beat" type="text" placeholder="Route / Market" class="w-full border p-2 rounded-lg mt-1 text-xs bg-gray-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+      </div>
+    </div>
+
+    <!-- Live Shop Photo Capture -->
+    <div class="border-2 border-dashed border-gray-300 rounded-xl p-3 text-center bg-gray-50">
+      <label class="text-xs font-bold text-gray-600 uppercase block mb-1">📸 Outlet / Freezer Photo</label>
+      <input type="file" id="cameraInput" accept="image/*" capture="environment" onchange="previewShopPhoto(event)" class="hidden">
+      <button type="button" onclick="document.getElementById('cameraInput').click()" class="bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-lg shadow active:scale-95 transition inline-flex items-center gap-1.5">
+        <span>📷 Capture Live Shop Photo</span>
+      </button>
+      <div id="photoStatus" class="text-[11px] text-gray-500 mt-1.5">Photo not taken</div>
+      <img id="photoPreview" class="hidden mx-auto mt-2 h-28 w-auto rounded-lg border shadow-sm object-cover" alt="Shop Preview">
+    </div>
+
+    <!-- Visit Outcome -->
+    <div>
+      <label class="text-xs font-bold text-gray-600 uppercase">Visit Status</label>
+      <div class="flex gap-3 mt-1.5">
+        <label class="flex items-center gap-1.5 text-sm font-semibold cursor-pointer">
+          <input type="radio" name="visitType" value="order" checked onchange="toggleOrderSection(true)" class="text-blue-600">
+          <span>Order Booked</span>
+        </label>
+        <label class="flex items-center gap-1.5 text-sm font-semibold cursor-pointer">
+          <input type="radio" name="visitType" value="no_order" onchange="toggleOrderSection(false)" class="text-blue-600">
+          <span>Only Visit (No Order)</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Reason if no order -->
+    <div id="noOrderReasonBox" class="hidden">
+      <label class="text-xs font-bold text-gray-600 uppercase">No Order Reason</label>
+      <select id="noOrderReason" class="w-full border p-2 rounded-lg mt-1 text-sm bg-gray-50 focus:bg-white outline-none">
+        <option value="Sufficient Stock Available">Sufficient Stock Available</option>
+        <option value="Shop Was Closed">Shop Was Closed</option>
+        <option value="Pending Payment Issue">Pending Payment Issue</option>
+        <option value="Owner / Decision Maker Not Available">Owner / Decision Maker Not Available</option>
+        <option value="Purchased Competitor Brand">Purchased Competitor Brand</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Booking Section -->
+  <div id="orderBookingSection" class="space-y-3">
+    <!-- Search Box -->
+    <div class="sticky top-2 z-10">
+      <input id="searchInput" type="text" oninput="filterProducts()" placeholder="🔍 Search items or categories..." 
+        class="w-full p-2.5 rounded-xl border border-gray-300 shadow-md text-sm outline-none focus:ring-2 focus:ring-blue-600 bg-white">
+    </div>
+
+    <!-- Catalog -->
+    <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-200">
+      <div class="flex justify-between items-center border-b pb-2 mb-2">
+        <h2 class="font-bold text-xs text-gray-700 uppercase">Products (Boxes & Van Stock)</h2>
+        <span class="text-[11px] text-gray-500 font-medium">Margin: 20% Applied</span>
+      </div>
+      <div id="productList" class="space-y-2.5 divide-y divide-gray-100 max-h-96 overflow-y-auto pr-1"></div>
+    </div>
+
+    <!-- Total, Split Payment & UPI QR -->
+    <div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 space-y-3">
+      <div class="flex justify-between items-center text-sm font-bold">
+        <span>Order Amount:</span>
+        <span class="text-blue-700 text-lg">₹<span id="grandTotal">0.00</span></span>
+      </div>
+
+      <!-- UPI QR Code Button -->
+      <button type="button" onclick="showPaymentQrModal()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-extrabold py-2.5 rounded-xl shadow-sm flex items-center justify-center gap-2 active:scale-95 transition text-xs uppercase tracking-wider">
+        <span>⚡ Show Payment UPI QR Code</span>
+      </button>
+
+      <!-- Cash vs UPI Collection Inputs -->
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <div>
+          <label class="text-[11px] font-bold text-gray-600 uppercase">💵 Cash Paid</label>
+          <input id="cashPaid" type="number" value="0" min="0" oninput="calculateBalance()" class="w-full border p-1.5 rounded-lg mt-0.5 text-sm bg-gray-50 font-semibold focus:bg-white outline-none">
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-gray-600 uppercase">📱 UPI Paid</label>
+          <input id="upiPaid" type="number" value="0" min="0" oninput="calculateBalance()" class="w-full border p-1.5 rounded-lg mt-0.5 text-sm bg-gray-50 font-semibold focus:bg-white outline-none">
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center text-xs font-semibold pt-1 border-t">
+        <span class="text-gray-600">Balance Due:</span>
+        <span class="text-sm font-black text-red-600">₹<span id="balanceAmount">0.00</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="mt-4 space-y-2">
+    <button id="submitBtn" onclick="saveAndSendVisit()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow flex items-center justify-center gap-2 active:scale-98 transition text-sm">
+      <span>🚀 Submit Order & Generate Bill Slip</span>
+    </button>
+    <button onclick="sendDayEndReport()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl shadow flex items-center justify-center gap-2 active:scale-98 transition text-xs uppercase tracking-wider">
+      <span>📊 Send Day-End DSR Report</span>
+    </button>
+  </div>
+
+  <!-- FREEZER & MACHINE ISSUE COMPLAINT MODAL -->
+  <div id="freezerComplaintModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-3 overflow-y-auto">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 my-auto">
+      <div class="border-b pb-2 flex justify-between items-center">
+        <div>
+          <h3 class="font-black text-sm text-gray-800 uppercase tracking-wide">❄️ Freezer / Fridge Complaint</h3>
+          <p class="text-[10px] text-gray-500">Report machine issues or cooling faults</p>
+        </div>
+        <button onclick="closeFreezerComplaintModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold">×</button>
+      </div>
+
+      <div class="space-y-2.5 text-xs">
+        <div>
+          <label class="font-bold text-gray-600 uppercase text-[10px]">Shop Name *</label>
+          <input id="fcShopName" type="text" placeholder="Enter shop or outlet name" class="w-full border p-2 rounded-lg mt-0.5 bg-gray-50 outline-none font-semibold">
+        </div>
+
+        <div>
+          <label class="font-bold text-gray-600 uppercase text-[10px]">Issue Type *</label>
+          <select id="fcIssueType" class="w-full border p-2 rounded-lg mt-0.5 bg-gray-50 outline-none font-semibold">
+            <option value="Cooling Fail / Not Working">Cooling Fail / Not Working</option>
+            <option value="Heavy Vibration / Compressor Noise">Heavy Vibration / Compressor Noise</option>
+            <option value="Power / Wiring / Switch Issue">Power / Wiring / Switch Issue</option>
+            <option value="Glass Door Broken / Missing Key">Glass Door Broken / Missing Key</option>
+            <option value="Gas Leakage / Ice Not Freezing">Gas Leakage / Ice Not Freezing</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-gray-600 uppercase text-[10px]">Urgency Level</label>
+          <select id="fcUrgency" class="w-full border p-2 rounded-lg mt-0.5 bg-gray-50 outline-none font-semibold text-rose-600">
+            <option value="Normal">Normal (Needs Service Soon)</option>
+            <option value="URGENT (Ice Cream Melting!)">URGENT (Ice Cream Melting!)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-gray-600 uppercase text-[10px]">Additional Notes / Description</label>
+          <textarea id="fcNotes" rows="2" placeholder="Describe the problem..." class="w-full border p-2 rounded-lg mt-0.5 bg-gray-50 outline-none"></textarea>
+        </div>
+
+        <!-- Problem Photo Capture -->
+        <div class="border border-dashed border-gray-300 rounded-xl p-2 text-center bg-gray-50">
+          <input type="file" id="fcPhotoInput" accept="image/*" capture="environment" onchange="previewFcPhoto(event)" class="hidden">
+          <button type="button" onclick="document.getElementById('fcPhotoInput').click()" class="bg-indigo-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow active:scale-95 transition inline-flex items-center gap-1">
+            <span>📷 Capture Machine Fault Photo</span>
+          </button>
+          <span id="fcPhotoStatus" class="text-[10px] text-gray-500 block mt-1">Photo optional</span>
+          <img id="fcPhotoPreview" class="hidden mx-auto mt-1.5 h-16 w-auto rounded border shadow-sm object-cover" alt="Fault Preview">
+        </div>
+      </div>
+
+      <div class="pt-2 border-t">
+        <button onclick="openComplaintChoiceModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow">
+          Next: Choose Action Option ⚙️
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHOICE MODAL (NO DIRECT SHARE) -->
+  <div id="complaintChoiceModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-3">
+    <div class="bg-white w-full max-w-xs rounded-2xl p-4 shadow-2xl space-y-3 text-center">
+      <div class="border-b pb-2">
+        <h3 class="font-black text-sm text-gray-800 uppercase">Complaint Logged Successfully!</h3>
+        <p class="text-[10px] text-gray-500">Choose what you want to do with this complaint report:</p>
+      </div>
+
+      <div class="space-y-2 pt-1 text-xs">
+        <button onclick="executeComplaintChoice('whatsapp')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl active:scale-95 transition flex items-center justify-center gap-1.5 shadow">
+          <span>📲 Share via WhatsApp</span>
+        </button>
+        <button onclick="executeComplaintChoice('copy')" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2.5 rounded-xl active:scale-95 transition border">
+          <span>📋 Copy Text to Clipboard</span>
+        </button>
+        <button onclick="executeComplaintChoice('save')" class="w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold py-2.5 rounded-xl active:scale-95 transition border border-indigo-200">
+          <span>💾 Save Locally Only</span>
+        </button>
+      </div>
+
+      <div class="pt-2 border-t">
+        <button onclick="closeComplaintChoiceModal()" class="w-full bg-gray-800 text-white py-2 rounded-xl text-xs font-bold active:scale-95">Cancel / Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VAN STOCK MANAGEMENT MODAL -->
+  <div id="vanStockModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-3">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 max-h-[90vh] flex flex-col">
+      <div class="border-b pb-2 flex justify-between items-center">
+        <div>
+          <h3 class="font-black text-sm text-gray-800 uppercase tracking-wide">Van Stock Loading & Live Tracking</h3>
+          <p class="text-[10px] text-gray-500">Set opening stock & check balance</p>
+        </div>
+        <button onclick="closeVanStockModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold">×</button>
+      </div>
+
+      <div id="vanStockListContainer" class="divide-y divide-gray-100 overflow-y-auto pr-1 flex-1 space-y-1.5 text-xs"></div>
+
+      <div class="pt-2 border-t flex gap-2">
+        <button onclick="saveVanStockLoad()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow">Save Van Stock Load</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETAILER DIGITAL INVOICE BILL MODAL -->
+  <div id="retailerBillModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-3 overflow-y-auto">
+    <div class="bg-white w-full max-w-xs rounded-2xl p-4 shadow-2xl space-y-2 text-gray-800 font-mono text-xs my-auto">
+      <div class="text-center border-b pb-2 border-dashed border-gray-400">
+        <h2 class="font-black text-sm uppercase tracking-wide">CRAVEMAN ICE CREAM</h2>
+        <p class="text-[10px] font-semibold text-gray-600 uppercase">Shaik Enterprises, Adoni</p>
+        <p class="text-[9px] text-gray-500">Retail Delivery Invoice Slip</p>
+      </div>
+
+      <div class="text-[10px] space-y-0.5 border-b pb-1.5 border-dashed border-gray-300">
+        <div>Bill No: <span id="billSlipNo" class="font-bold">#CRV-001</span></div>
+        <div>Date: <span id="billSlipDate">--</span> | Time: <span id="billSlipTime">--</span></div>
+        <div>Shop: <span id="billSlipShop" class="font-bold text-gray-900">--</span></div>
+        <div>Beat: <span id="billSlipBeat">--</span></div>
+        <div>Salesman: <span id="billSlipSalesman">--</span></div>
+      </div>
+
+      <div class="py-1 border-b border-dashed border-gray-300">
+        <div class="flex justify-between font-bold text-[10px] border-b pb-1 text-gray-600">
+          <span>ITEM</span>
+          <span>BOX x RATE = AMT</span>
+        </div>
+        <div id="billSlipItemsList" class="divide-y divide-gray-100 text-[10px] py-1 space-y-1"></div>
+      </div>
+
+      <div class="space-y-1 text-[11px] pt-1 border-b pb-2 border-dashed border-gray-400 font-semibold">
+        <div class="flex justify-between"><span>Total Boxes:</span><span id="billSlipBoxes" class="font-bold">0</span></div>
+        <div class="flex justify-between text-xs font-black"><span>Net Bill Amount:</span><span class="text-indigo-900">₹<span id="billSlipTotal">0.00</span></span></div>
+        <div class="flex justify-between text-[10px] text-emerald-700"><span>Cash Paid:</span><span>₹<span id="billSlipCash">0.00</span></span></div>
+        <div class="flex justify-between text-[10px] text-blue-700"><span>UPI Paid:</span><span>₹<span id="billSlipUpi">0.00</span></span></div>
+        <div class="flex justify-between text-xs font-black text-red-600"><span>Balance Due:</span><span>₹<span id="billSlipBalance">0.00</span></span></div>
+      </div>
+
+      <div class="text-center text-[9px] text-gray-400 py-1">*** Thank You For Your Business! ***</div>
+
+      <div class="space-y-1.5 pt-1">
+        <button onclick="shareBillSlipToRetailer()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs active:scale-95 transition flex items-center justify-center gap-1.5 shadow">
+          <span>📲 Share Bill Slip to Retailer WhatsApp</span>
+        </button>
+        <div class="grid grid-cols-2 gap-1.5">
+          <button onclick="window.print()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-1.5 rounded-xl text-[11px] active:scale-95 transition border">🖨️ Print Slip</button>
+          <button onclick="closeRetailerBillModal()" class="w-full bg-gray-800 text-white font-bold py-1.5 rounded-xl text-[11px] active:scale-95 transition">Close / Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDAR & ATTENDANCE LOG MODAL -->
+  <div id="calendarModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 max-h-[92vh] flex flex-col">
+      <div class="border-b pb-2 flex justify-between items-center">
+        <div>
+          <h3 class="font-black text-sm text-gray-800 uppercase tracking-wide">Monthly Attendance</h3>
+          <p id="calMonthYearText" class="text-[11px] font-bold text-indigo-700"></p>
+        </div>
+        <button onclick="closeCalendarModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold">×</button>
+      </div>
+
+      <div class="flex justify-between items-center text-xs font-bold px-1">
+        <button onclick="changeCalendarMonth(-1)" class="bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded text-gray-700 active:scale-95">◀ Prev</button>
+        <span id="calendarHeading" class="font-extrabold text-gray-800"></span>
+        <button onclick="changeCalendarMonth(1)" class="bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded text-gray-700 active:scale-95">Next ▶</button>
+      </div>
+
+      <div class="grid grid-cols-7 gap-1 text-center font-bold text-[10px] text-gray-500">
+        <div class="text-rose-500 font-extrabold">SUN</div>
+        <div>MON</div>
+        <div>TUE</div>
+        <div>WED</div>
+        <div>THU</div>
+        <div>FRI</div>
+        <div>SAT</div>
+      </div>
+
+      <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 text-center font-bold text-xs flex-1 overflow-y-auto"></div>
+
+      <div class="grid grid-cols-3 gap-1 pt-2 border-t text-[10px] text-center font-bold">
+        <div class="flex items-center justify-center gap-1"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span><span class="text-emerald-800">Present</span></div>
+        <div class="flex items-center justify-center gap-1"><span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span><span class="text-rose-800">Absent</span></div>
+        <div class="flex items-center justify-center gap-1"><span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span><span class="text-amber-800">Sunday</span></div>
+      </div>
+
+      <div class="bg-gray-50 p-2 rounded-xl border border-gray-200 grid grid-cols-3 text-center text-xs">
+        <div>Present: <span id="summaryPresent" class="font-black text-emerald-600">0</span></div>
+        <div>Absent: <span id="summaryAbsent" class="font-black text-rose-600">0</span></div>
+        <div>Sundays: <span id="summarySundays" class="font-black text-amber-600">0</span></div>
+      </div>
+
+      <div class="pt-1 flex gap-2">
+        <button onclick="shareAttendanceReport()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl text-xs font-bold active:scale-95 transition flex items-center justify-center gap-1.5 shadow">
+          <span>📲 Share Attendance to WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER & VISIT HISTORY MODAL -->
+  <div id="historyModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 max-h-[85vh] flex flex-col">
+      <div class="border-b pb-2 flex justify-between items-center">
+        <div>
+          <h3 class="font-black text-sm text-gray-800 uppercase tracking-wide">Today's Visit & Order Log</h3>
+          <p class="text-[10px] text-gray-500">Live summary of all visits today</p>
+        </div>
+        <button onclick="closeHistoryModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold">×</button>
+      </div>
+
+      <div id="historyListContainer" class="divide-y divide-gray-100 overflow-y-auto pr-1 flex-1 space-y-2"></div>
+
+      <div class="pt-2 border-t flex gap-2">
+        <button onclick="closeHistoryModal()" class="w-full bg-gray-800 text-white py-2 rounded-xl text-xs font-bold active:scale-95">Close History</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANAGE / DELETE OUTLETS MODAL -->
+  <div id="manageOutletsModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 max-h-[85vh] flex flex-col">
+      <div class="border-b pb-2 flex justify-between items-center">
+        <div>
+          <h3 class="font-black text-sm text-gray-800 uppercase tracking-wide">Manage Outlets</h3>
+          <p class="text-[10px] text-gray-500">View and delete saved outlets</p>
+        </div>
+        <button onclick="closeManageOutletsModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold">×</button>
+      </div>
+
+      <div id="manageOutletsList" class="divide-y divide-gray-100 overflow-y-auto pr-1 flex-1 space-y-1"></div>
+
+      <div class="pt-2 border-t">
+        <button onclick="closeManageOutletsModal()" class="w-full bg-gray-800 text-white py-2 rounded-xl text-xs font-bold active:scale-95">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW OUTLET REGISTRATION MODAL -->
+  <div id="newOutletModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 overflow-y-auto">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl relative space-y-2.5 my-auto max-h-[92vh] overflow-y-auto">
+      <div class="border-b pb-2 flex justify-between items-center">
+        <div>
+          <h3 class="font-black text-sm text-gray-800 uppercase tracking-wide">Register New Outlet</h3>
+          <p class="text-[10px] text-gray-500">Capture full retailer details & GPS</p>
+        </div>
+        <button onclick="closeNewOutletModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold">×</button>
+      </div>
+
+      <div>
+        <label class="text-[10px] font-bold text-gray-600 uppercase">Shop / Outlet Name *</label>
+        <input id="regShopName" type="text" placeholder="e.g. Balaji Milk Point" class="w-full border p-1.5 rounded-lg text-xs bg-gray-50 focus:bg-white outline-none font-medium">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-[10px] font-bold text-gray-600 uppercase">Owner Name</label>
+          <input id="regOwnerName" type="text" placeholder="e.g. Ramesh Kumar" class="w-full border p-1.5 rounded-lg text-xs bg-gray-50 focus:bg-white outline-none">
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-gray-600 uppercase">Mobile Number *</label>
+          <input id="regPhone" type="tel" placeholder="10-digit number" class="w-full border p-1.5 rounded-lg text-xs bg-gray-50 focus:bg-white outline-none">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-[10px] font-bold text-gray-600 uppercase">Beat / Area *</label>
+          <input id="regBeat" type="text" placeholder="e.g. Havanapet" class="w-full border p-1.5 rounded-lg text-xs bg-gray-50 focus:bg-white outline-none">
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-gray-600 uppercase">Outlet Type</label>
+          <select id="regType" class="w-full border p-1.5 rounded-lg text-xs bg-gray-50 focus:bg-white outline-none font-medium">
+            <option value="Kirana Store">Kirana Store</option>
+            <option value="Bakery / Sweets">Bakery / Sweets</option>
+            <option value="Dairy Parlour">Dairy Parlour</option>
+            <option value="Ice Cream Parlour">Ice Cream Parlour</option>
+            <option value="Hotel / Cafe">Hotel / Cafe</option>
+            <option value="Pan Shop">Pan Shop</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="text-[10px] font-bold text-gray-600 uppercase">Deep Freezer Status</label>
+        <select id="regFreezer" class="w-full border p-1.5 rounded-lg text-xs bg-gray-50 focus:bg-white outline-none font-medium">
+          <option value="Craveman Dedicated Machine">Craveman Dedicated Machine</option>
+          <option value="Retailer Own Freezer">Retailer Own Freezer</option>
+          <option value="No Freezer (Needs Company Machine)">No Freezer (Needs Machine)</option>
+        </select>
+      </div>
+
+      <div class="border border-dashed border-gray-300 rounded-xl p-2 text-center bg-gray-50">
+        <input type="file" id="regPhotoInput" accept="image/*" capture="environment" onchange="previewRegPhoto(event)" class="hidden">
+        <button type="button" onclick="document.getElementById('regPhotoInput').click()" class="bg-indigo-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow active:scale-95 transition inline-flex items-center gap-1">
+          <span>📷 Take Shop Front Photo</span>
+        </button>
+        <span id="regPhotoStatus" class="text-[10px] text-gray-500 block mt-1">Photo optional</span>
+        <img id="regPhotoPreview" class="hidden mx-auto mt-1.5 h-16 w-auto rounded border shadow-sm object-cover" alt="Shop Front Preview">
+      </div>
+
+      <div class="flex gap-2 pt-1">
+        <button onclick="closeNewOutletModal()" class="w-1/3 bg-gray-200 text-gray-700 py-2 rounded-xl text-xs font-bold active:scale-95">Cancel</button>
+        <button id="saveOutletBtn" onclick="saveNewOutlet()" class="w-2/3 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl text-xs font-bold active:scale-95 shadow">Save Outlet & Share</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPI QR Code Popup Modal -->
+  <div id="qrModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-xs rounded-2xl p-5 text-center shadow-2xl relative">
+      <h3 class="font-black text-base text-gray-800 uppercase tracking-wide">Craveman Payment QR</h3>
+      <p class="text-xs text-gray-500 font-semibold mt-0.5">Shaik Enterprises</p>
+      
+      <div class="my-4 p-2 bg-gray-50 border rounded-xl flex justify-center">
+        <img id="qrImage" src="" alt="UPI QR Code" class="w-52 h-52 object-contain">
+      </div>
+
+      <div class="text-sm font-bold text-gray-700 mb-1">
+        Bill Amount: <span class="text-emerald-700 text-lg">₹<span id="qrBillAmount">0.00</span></span>
+      </div>
+      <p class="text-[10px] text-gray-400 font-mono mb-4">UPI ID: 6301284479@superyes</p>
+
+      <button onclick="closePaymentQrModal()" class="w-full bg-gray-800 text-white py-2 rounded-xl text-xs font-bold active:scale-95 transition">Close / Paid</button>
+    </div>
+  </div>
+
+  <script>
+    const UPI_ID = "6301284479@superyes";
+    const PAYEE_NAME = "Shaik Enterprises";
+
+    const menuData = [
+      // CUPS
+      { cat: "Cups 50ml", name: "Cup Vanilla 50ml", mrp: 5, pack: 48 },
+      { cat: "Cups 50ml", name: "Cup Strawberry 50ml", mrp: 5, pack: 48 },
+      { cat: "Cups 50ml", name: "Cup Butterscotch 50ml", mrp: 5, pack: 48 },
+      { cat: "Cups 50ml", name: "Cup Chocolate 50ml", mrp: 5, pack: 48 },
+      { cat: "Cups 70ml", name: "Cup Vanilla 70ml", mrp: 10, pack: 36 },
+      { cat: "Cups 70ml", name: "Cup Strawberry 70ml", mrp: 10, pack: 36 },
+      { cat: "Cups 70ml", name: "Cup Butterscotch 70ml", mrp: 10, pack: 36 },
+      { cat: "Cups 70ml", name: "Cup Chocolate 70ml", mrp: 10, pack: 36 },
+      { cat: "Cups 70ml", name: "Cup Pista 70ml", mrp: 10, pack: 36 },
+      { cat: "Cups 70ml", name: "Cup Mango 70ml", mrp: 10, pack: 36 },
+      { cat: "Cups 100ml", name: "Cup Vanilla 100ml", mrp: 15, pack: 30 },
+      { cat: "Cups 100ml", name: "Cup Strawberry 100ml", mrp: 15, pack: 30 },
+      { cat: "Cups 100ml", name: "Cup Butterscotch 100ml", mrp: 15, pack: 30 },
+      { cat: "Cups 100ml", name: "Cup Chocolate 100ml", mrp: 15, pack: 30 },
+
+      // CANDY
+      { cat: "Candy", name: "Candy Orange 35ml", mrp: 5, pack: 48 },
+      { cat: "Candy", name: "Candy Mango 35ml", mrp: 5, pack: 48 },
+      { cat: "Candy", name: "Candy Grape 35ml", mrp: 5, pack: 48 },
+      { cat: "Candy", name: "Candy Mango 60ml", mrp: 10, pack: 36 },
+      { cat: "Candy", name: "Candy Orange 60ml", mrp: 10, pack: 36 },
+      { cat: "Candy", name: "Candy Grape 60ml", mrp: 10, pack: 36 },
+      { cat: "Candy", name: "Candy Kala Khatta 60ml", mrp: 10, pack: 36 },
+      { cat: "Candy", name: "Candy Green Apple 60ml", mrp: 10, pack: 36 },
+      { cat: "Candy", name: "Candy Blueberry 60ml", mrp: 10, pack: 36 },
+
+      // DUET & CHOCOBAR
+      { cat: "Chocobar", name: "Duet Strawberry 60ml", mrp: 15, pack: 30 },
+      { cat: "Chocobar", name: "Duet Mango 60ml", mrp: 15, pack: 30 },
+      { cat: "Chocobar", name: "Junior Chocobar 40ml", mrp: 10, pack: 40 },
+      { cat: "Chocobar", name: "Orange Bar 40ml", mrp: 10, pack: 40 },
+      { cat: "Big Chocobar", name: "Big Chocobar 60ml", mrp: 20, pack: 30 },
+      { cat: "Big Chocobar", name: "Chocobar Feast 70ml", mrp: 30, pack: 24 },
+
+      // CONES
+      { cat: "Cones", name: "Mini Cone Vanilla 40ml", mrp: 10, pack: 36 },
+      { cat: "Cones", name: "Mini Cone Butterscotch 40ml", mrp: 10, pack: 36 },
+      { cat: "Med Cone", name: "Med Cone Vanilla 60ml", mrp: 20, pack: 24 },
+      { cat: "Med Cone", name: "Med Cone Strawberry 60ml", mrp: 20, pack: 24 },
+      { cat: "Med Cone", name: "Med Cone Butterscotch 60ml", mrp: 20, pack: 24 },
+      { cat: "Med Cone", name: "Med Cone Chocolate 60ml", mrp: 20, pack: 24 },
+      { cat: "Med Cone", name: "Med Cone Pista 60ml", mrp: 20, pack: 24 },
+      { cat: "Med Cone", name: "Med Cone Blackcurrant 60ml", mrp: 20, pack: 24 },
+      { cat: "Big Cone", name: "Big Cone Vanilla 110ml", mrp: 30, pack: 20 },
+      { cat: "Big Cone", name: "Big Cone Butterscotch 110ml", mrp: 30, pack: 20 },
+      { cat: "Big Cone", name: "Big Cone Chocolate 110ml", mrp: 30, pack: 20 },
+      { cat: "Big Cone", name: "Big Cone Blackcurrant 110ml", mrp: 35, pack: 20 },
+      { cat: "Big Cone", name: "Big Cone Belgian Chocolate 110ml", mrp: 35, pack: 20 },
+
+      // KULFI & SPECIAL
+      { cat: "Kulfi", name: "Kulfi Stick Gulab Badam 60ml", mrp: 20, pack: 30 },
+      { cat: "Kulfi", name: "Kulfi Stick Malai Mawa 60ml", mrp: 20, pack: 30 },
+      { cat: "Kulfi", name: "Kulfi Stick Pista Kesar 60ml", mrp: 20, pack: 30 },
+      { cat: "Kulfi", name: "Kulfi Stick Rajwadi Kulfi 60ml", mrp: 20, pack: 30 },
+      { cat: "Matka Kulfi", name: "Matka Kulfi 100ml", mrp: 35, pack: 18 },
+      { cat: "Special", name: "Cassata Slice 120ml", mrp: 35, pack: 24 },
+      { cat: "Special", name: "Sundae Swinger 100ml", mrp: 30, pack: 24 },
+      { cat: "Special", name: "Sundae Chocolate 100ml", mrp: 30, pack: 24 },
+
+      // TUBS
+      { cat: "Tubs", name: "Tub 700+700ml Vanilla", mrp: 140, pack: 6 },
+      { cat: "Tubs", name: "Tub 700+700ml Strawberry", mrp: 140, pack: 6 },
+      { cat: "Tubs", name: "Tub 700+700ml Butterscotch", mrp: 160, pack: 6 },
+      { cat: "Tubs", name: "Tub 700+700ml Chocolate", mrp: 160, pack: 6 },
+      { cat: "IML Tubs", name: "IML Tub Bavarian Choco 500ml", mrp: 125, pack: 8 },
+      { cat: "IML Tubs", name: "IML Tub Kesar Sangam 500ml", mrp: 125, pack: 8 },
+      { cat: "IML Tubs", name: "IML Tub Bavarian Choco 1000ml", mrp: 225, pack: 6 },
+      { cat: "IML Tubs", name: "IML Tub Kesar Sangam 1000ml", mrp: 225, pack: 6 }
+    ];
+
+    const products = menuData.map((item, idx) => {
+      const totalBoxMrp = item.mrp * item.pack;
+      const boxRate = parseFloat((totalBoxMrp * 0.80).toFixed(2));
+      return {
+        id: idx + 1,
+        name: item.name,
+        cat: item.cat,
+        mrp: item.mrp,
+        pack: item.pack,
+        totalBoxMrp: totalBoxMrp,
+        boxRate: boxRate
+      };
+    });
+
+    let savedOutlets = JSON.parse(localStorage.getItem('craveman_outlets')) || [
+      { name: "Yasmeen Store", beat: "Havanapet", phone: "9876543210", owner: "Yasmeen", type: "Kirana Store", freezer: "Craveman Dedicated Machine" },
+      { name: "Taj Cold Drinks", beat: "Main Road", phone: "9811223344", owner: "Irfan", type: "Pan Shop", freezer: "Retailer Own Freezer" },
+      { name: "Royal Kirana", beat: "Market Yard", phone: "9844556677", owner: "Shaik", type: "Kirana Store", freezer: "Craveman Dedicated Machine" }
+    ];
+
+    let attendanceHistory = JSON.parse(localStorage.getItem('craveman_attendance_history')) || {};
+    let vanStockLoaded = JSON.parse(localStorage.getItem('craveman_van_stock')) || {};
+
+    let attendanceState = JSON.parse(localStorage.getItem('craveman_attendance')) || {
+      hasPunchedIn: false,
+      hasPunchedOut: false,
+      inTime: null,
+      outTime: null,
+      salesman: "",
+      date: null
+    };
+
+    let selectedSelfieFile = null;
+    let selectedShopPhotoFile = null;
+    let selectedRegPhotoFile = null;
+    let selectedFcPhotoFile = null;
+    let lastGeneratedBill = null;
+    let lastComplaintData = null;
+
+    let dayData = JSON.parse(localStorage.getItem('craveman_day_stats')) || {
+      visits: 0,
+      orders: 0,
+      boxes: 0,
+      sales: 0,
+      totalCash: 0,
+      totalUpi: 0,
+      kmTravelled: 0.0,
+      lastCoords: null,
+      history: []
+    };
+
+    function getTodayKey() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function openMenuDropdown() {
+      const menu = document.getElementById("topDropdownMenu");
+      menu.classList.toggle("hidden");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('button') && !event.target.closest('#topDropdownMenu')) {
+        const menu = document.getElementById("topDropdownMenu");
+        if (menu && !menu.classList.contains('hidden')) {
+          menu.classList.add('hidden');
+        }
+      }
+    }
+
+    function populateOutletDropdown() {
+      const dd = document.getElementById("outletDropdown");
+      dd.innerHTML = `<option value="">-- Select from saved outlets --</option>`;
+      savedOutlets.forEach((o, index) => {
+        const opt = document.createElement("option");
+        opt.value = index;
+        opt.innerText = `${o.name} (${o.beat})`;
+        dd.appendChild(opt);
+      });
+      document.getElementById("deleteSelectedOutletBtn").classList.add("hidden");
+    }
+
+    function onSelectSavedOutlet() {
+      const dd = document.getElementById("outletDropdown");
+      const delBtn = document.getElementById("deleteSelectedOutletBtn");
+      const idx = dd.value;
+      if (idx !== "") {
+        const outlet = savedOutlets[idx];
+        document.getElementById("shopName").value = outlet.name;
+        document.getElementById("beat").value = outlet.beat;
+        delBtn.classList.remove("hidden");
+      } else {
+        delBtn.classList.add("hidden");
+      }
+    }
+
+    function deleteSelectedOutlet() {
+      const dd = document.getElementById("outletDropdown");
+      const idx = parseInt(dd.value);
+      if (isNaN(idx) || !savedOutlets[idx]) return;
+
+      const shopName = savedOutlets[idx].name;
+      if (confirm(`Are you sure you want to delete "${shopName}"?`)) {
+        savedOutlets.splice(idx, 1);
+        localStorage.setItem('craveman_outlets', JSON.stringify(savedOutlets));
+        populateOutletDropdown();
+        document.getElementById("shopName").value = "";
+        document.getElementById("beat").value = "";
+      }
+    }
+
+    function openManageOutletsModal() {
+      const listEl = document.getElementById("manageOutletsList");
+      listEl.innerHTML = "";
+      if (savedOutlets.length === 0) {
+        listEl.innerHTML = `<p class="text-xs text-gray-400 py-4 text-center">No saved outlets found.</p>`;
+      } else {
+        savedOutlets.forEach((o, index) => {
+          const item = document.createElement("div");
+          item.className = "py-2 flex items-center justify-between text-xs";
+          item.innerHTML = `
+            <div class="pr-2">
+              <div class="font-bold text-gray-800">${o.name}</div>
+              <div class="text-[10px] text-gray-500">${o.beat} ${o.phone ? '• ' + o.phone : ''}</div>
+            </div>
+            <button onclick="deleteOutletFromModal(${index})" class="bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 px-2 py-1 rounded text-xs font-bold active:scale-95 transition">Delete</button>
+          `;
+          listEl.appendChild(item);
+        });
+      }
+      document.getElementById("manageOutletsModal").classList.remove("hidden");
+    }
+
+    function closeManageOutletsModal() {
+      document.getElementById("manageOutletsModal").classList.add("hidden");
+    }
+
+    function deleteOutletFromModal(index) {
+      if (confirm(`Delete outlet "${savedOutlets[index].name}"?`)) {
+        savedOutlets.splice(index, 1);
+        localStorage.setItem('craveman_outlets', JSON.stringify(savedOutlets));
+        populateOutletDropdown();
+        openManageOutletsModal();
+      }
+    }
+
+    // ============ FREEZER COMPLAINT LOGIC ============
+    function openFreezerComplaintModal() {
+      const currentShop = document.getElementById("shopName").value.trim();
+      if (currentShop) {
+        document.getElementById("fcShopName").value = currentShop;
+      }
+      document.getElementById("freezerComplaintModal").classList.remove("hidden");
+    }
+
+    function closeFreezerComplaintModal() {
+      document.getElementById("freezerComplaintModal").classList.add("hidden");
+    }
+
+    function previewFcPhoto(event) {
+      const file = event.target.files[0];
+      if (file) {
+        selectedFcPhotoFile = file;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById("fcPhotoPreview");
+          img.src = e.target.result;
+          img.classList.remove("hidden");
+          document.getElementById("fcPhotoStatus").innerHTML = "✅ Fault Photo Attached";
+          document.getElementById("fcPhotoStatus").className = "text-[10px] text-green-600 font-bold block mt-1";
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function openComplaintChoiceModal() {
+      const shop = document.getElementById("fcShopName").value.trim();
+      const issue = document.getElementById("fcIssueType").value;
+      const urgency = document.getElementById("fcUrgency").value;
+      const notes = document.getElementById("fcNotes").value.trim();
+      const salesman = document.getElementById("salesman").value.trim() || "Salesman";
+
+      if (!shop) {
+        alert("Please enter Shop Name!");
+        return;
+      }
+
+      lastComplaintData = `*❄️ MACHINE / FREEZER COMPLAINT*\n` +
+        `*Craveman Ice Cream - Shaik Enterprises*\n` +
+        `--------------------------------\n` +
+        `*Salesman:* ${salesman}\n` +
+        `*Shop Name:* ${shop}\n` +
+        `*Issue Type:* ${issue}\n` +
+        `*Urgency:* ${urgency}\n` +
+        `*Notes:* ${notes || 'None'}\n` +
+        `*Date:* ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}\n` +
+        `--------------------------------`;
+
+      closeFreezerComplaintModal();
+      document.getElementById("complaintChoiceModal").classList.remove("hidden");
+    }
+
+    function closeComplaintChoiceModal() {
+      document.getElementById("complaintChoiceModal").classList.add("hidden");
+    }
+
+    async function executeComplaintChoice(action) {
+      if (!lastComplaintData) return;
+
+      if (action === 'whatsapp') {
+        if (selectedFcPhotoFile && navigator.canShare && navigator.canShare({ files: [selectedFcPhotoFile] })) {
+          try {
+            await navigator.share({
+              files: [selectedFcPhotoFile],
+              text: lastComplaintData,
+              title: 'Freezer Complaint'
+            });
+            closeComplaintChoiceModal();
+            return;
+          } catch(e) {}
+        }
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(lastComplaintData)}`, '_blank');
+      } else if (action === 'copy') {
+        navigator.clipboard.writeText(lastComplaintData);
+        alert("Complaint text copied to clipboard!");
+      } else if (action === 'save') {
+        alert("Complaint saved locally in day records!");
+      }
+      closeComplaintChoiceModal();
+    }
+
+    // ============ VAN STOCK MANAGEMENT LOGIC ============
+    function openVanStockModal() {
+      const container = document.getElementById("vanStockListContainer");
+      container.innerHTML = "";
+
+      products.forEach(p => {
+        const currentLoaded = vanStockLoaded[p.id] !== undefined ? vanStockLoaded[p.id].loaded : 0;
+        const currentSold = vanStockLoaded[p.id] !== undefined ? vanStockLoaded[p.id].sold : 0;
+        const balance = Math.max(0, currentLoaded - currentSold);
+
+        const row = document.createElement("div");
+        row.className = "p-2 bg-gray-50 rounded-xl border flex items-center justify-between";
+        row.innerHTML = `
+          <div class="w-2/5 pr-1">
+            <div class="font-bold text-gray-800">${p.name}</div>
+            <div class="text-[10px] text-indigo-600">Balance: <span class="font-black">${balance} bxs</span></div>
+          </div>
+          <div class="w-3/5 flex items-center justify-end gap-1">
+            <div class="text-right">
+              <span class="text-[9px] text-gray-500 block">Load (Boxes)</span>
+              <input type="number" min="0" value="${currentLoaded}" id="van_load_${p.id}" class="w-16 border rounded p-1 text-center font-bold text-xs bg-white">
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      document.getElementById("vanStockModal").classList.remove("hidden");
+    }
+
+    function closeVanStockModal() {
+      document.getElementById("vanStockModal").classList.add("hidden");
+    }
+
+    function saveVanStockLoad() {
+      products.forEach(p => {
+        const input = document.getElementById(`van_load_${p.id}`);
+        const loadVal = input ? (parseInt(input.value) || 0) : 0;
+        const prevSold = vanStockLoaded[p.id] ? vanStockLoaded[p.id].sold : 0;
+
+        vanStockLoaded[p.id] = {
+          loaded: loadVal,
+          sold: prevSold
+        };
+      });
+
+      localStorage.setItem('craveman_van_stock', JSON.stringify(vanStockLoaded));
+      updateVanStockSummaryUI();
+      renderList(products);
+      closeVanStockModal();
+      alert("Van Stock Loaded Successfully!");
+    }
+
+    function updateVanStockSummaryUI() {
+      let totalLoaded = 0;
+      let totalBalance = 0;
+
+      Object.keys(vanStockLoaded).forEach(id => {
+        totalLoaded += vanStockLoaded[id].loaded;
+        totalBalance += Math.max(0, vanStockLoaded[id].loaded - vanStockLoaded[id].sold);
+      });
+
+      const summaryEl = document.getElementById("vanStockSummaryText");
+      if (totalLoaded === 0) {
+        summaryEl.innerText = "Not Loaded (Click to Load Van)";
+        summaryEl.className = "text-xs font-black text-rose-600";
+      } else {
+        summaryEl.innerText = `Loaded: ${totalLoaded} bxs | Balance in Van: ${totalBalance} bxs`;
+        summaryEl.className = "text-xs font-black text-indigo-700";
+      }
+    }
+
+    // ============ CALENDAR & ATTENDANCE LOG LOGIC ============
+    let currentCalDate = new Date();
+
+    function openCalendarModal() {
+      currentCalDate = new Date();
+      renderCalendar();
+      document.getElementById("calendarModal").classList.remove("hidden");
+    }
+
+    function closeCalendarModal() {
+      document.getElementById("calendarModal").classList.add("hidden");
+    }
+
+    function changeCalendarMonth(offset) {
+      currentCalDate.setMonth(currentCalDate.getMonth() + offset);
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const year = currentCalDate.getFullYear();
+      const month = currentCalDate.getMonth();
+      const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+      document.getElementById("calendarHeading").innerText = `${monthNames[month]} ${year}`;
+      document.getElementById("calMonthYearText").innerText = `${monthNames[month]} ${year}`;
+
+      const firstDayIndex = new Date(year, month, 1).getDay();
+      const totalDays = new Date(year, month + 1, 0).getDate();
+
+      const grid = document.getElementById("calendarDaysGrid");
+      grid.innerHTML = "";
+
+      const today = new Date();
+      const todayYear = today.getFullYear();
+      const todayMonth = today.getMonth();
+      const todayDate = today.getDate();
+
+      let presentCount = 0;
+      let absentCount = 0;
+      let sundayCount = 0;
+
+      for (let i = 0; i < firstDayIndex; i++) {
+        const emptyDiv = document.createElement("div");
+        emptyDiv.className = "py-2";
+        grid.appendChild(emptyDiv);
+      }
+
+      for (let day = 1; day <= totalDays; day++) {
+        const cellDate = new Date(year, month, day);
+        const dayOfWeek = cellDate.getDay();
+        const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const record = attendanceHistory[dateKey];
+
+        const isPastOrToday = cellDate <= today;
+        const isSunday = (dayOfWeek === 0);
+
+        let colorClasses = "bg-gray-50 text-gray-400 border-gray-100";
+        let statusBadge = "";
+
+        if (isSunday) {
+          colorClasses = "bg-amber-100 text-amber-900 border-amber-300 font-extrabold";
+          statusBadge = "OFF";
+          if (isPastOrToday) sundayCount++;
+        } else if (record && record.punchedIn) {
+          colorClasses = "bg-emerald-500 text-white border-emerald-600 shadow-sm";
+          statusBadge = "P";
+          presentCount++;
+        } else if (isPastOrToday) {
+          colorClasses = "bg-rose-500 text-white border-rose-600 shadow-sm";
+          statusBadge = "A";
+          absentCount++;
+        }
+
+        const isCurrentDay = (year === todayYear && month === todayMonth && day === todayDate);
+
+        const dayCell = document.createElement("div");
+        dayCell.className = `p-1.5 rounded-xl border flex flex-col items-center justify-between min-h-[48px] ${colorClasses} ${isCurrentDay ? 'ring-2 ring-indigo-500 ring-offset-1' : ''}`;
+        dayCell.innerHTML = `
+          <span class="text-xs leading-none">${day}</span>
+          <span class="text-[9px] font-black mt-1 uppercase">${statusBadge || '-'}</span>
+        `;
+        grid.appendChild(dayCell);
+      }
+
+      document.getElementById("summaryPresent").innerText = presentCount;
+      document.getElementById("summaryAbsent").innerText = absentCount;
+      document.getElementById("summarySundays").innerText = sundayCount;
+    }
+
+    function shareAttendanceReport() {
+      const salesman = document.getElementById("salesman").value.trim() || attendanceState.salesman || "Salesman";
+      const year = currentCalDate.getFullYear();
+      const month = currentCalDate.getMonth();
+      const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const monthStr = `${monthNames[month]} ${year}`;
+
+      const present = document.getElementById("summaryPresent").innerText;
+      const absent = document.getElementById("summaryAbsent").innerText;
+      const sundays = document.getElementById("summarySundays").innerText;
+
+      const msg = `*📅 MONTHLY ATTENDANCE REPORT*\n` +
+        `*CRAVEMAN ICE CREAM - Shaik Enterprises*\n` +
+        `--------------------------------\n` +
+        `*Salesman:* ${salesman}\n` +
+        `*Month:* ${monthStr}\n` +
+        `--------------------------------\n` +
+        `*🟢 Days Present:* ${present}\n` +
+        `*🔴 Days Absent:* ${absent}\n` +
+        `*🟡 Sunday Leaves:* ${sundays}\n` +
+        `--------------------------------\n` +
+        `*Report Generated:* ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}\n` +
+        `--------------------------------`;
+
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function openHistoryModal() {
+      const container = document.getElementById("historyListContainer");
+      container.innerHTML = "";
+
+      if (!dayData.history || dayData.history.length === 0) {
+        container.innerHTML = `<p class="text-xs text-gray-400 py-8 text-center">No visits or orders recorded today yet.</p>`;
+      } else {
+        dayData.history.slice().reverse().forEach((h) => {
+          const card = document.createElement("div");
+          card.className = "p-2.5 rounded-xl border mb-2 bg-gray-50";
+
+          if (h.type === "ORDER") {
+            card.className += " border-emerald-200 bg-emerald-50/40";
+            card.innerHTML = `
+              <div class="flex justify-between items-start text-xs">
+                <div>
+                  <span class="font-black text-gray-800">${h.shop}</span>
+                  <span class="text-[10px] text-gray-500 block">${h.beat || ''} • 🕒 ${h.time}</span>
+                </div>
+                <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">ORDER BOOKED</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1 mt-2 text-center text-[11px] font-bold border-t border-emerald-200 pt-1.5">
+                <div>Boxes: <span class="text-indigo-700">${h.boxes}</span></div>
+                <div>Bill: <span class="text-emerald-700">₹${h.total}</span></div>
+                <div>Bal: <span class="text-red-600">₹${h.balance || 0}</span></div>
+              </div>
+              <div class="text-[10px] text-gray-600 mt-1 flex justify-between">
+                <span>💵 Cash: ₹${h.cash || 0} | 📱 UPI: ₹${h.upi || 0}</span>
+                ${h.maps && h.maps.startsWith('http') ? `<a href="${h.maps}" target="_blank" class="text-blue-600 underline font-semibold">📍 GPS Map</a>` : ''}
+              </div>
+            `;
+          } else {
+            card.className += " border-rose-200 bg-rose-50/40";
+            card.innerHTML = `
+              <div class="flex justify-between items-start text-xs">
+                <div>
+                  <span class="font-black text-gray-800">${h.shop}</span>
+                  <span class="text-[10px] text-gray-500 block">${h.beat || ''} • 🕒 ${h.time}</span>
+                </div>
+                <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300">NO ORDER</span>
+              </div>
+              <div class="text-[11px] text-gray-600 mt-1.5 border-t border-rose-200 pt-1">
+                Reason: <span class="font-bold text-gray-800">${h.reason}</span>
+              </div>
+              ${h.maps && h.maps.startsWith('http') ? `<div class="text-right mt-1"><a href="${h.maps}" target="_blank" class="text-[10px] text-blue-600 underline font-semibold">📍 GPS Location</a></div>` : ''}
+            `;
+          }
+          container.appendChild(card);
+        });
+      }
+
+      document.getElementById("historyModal").classList.remove("hidden");
+    }
+
+    function closeHistoryModal() {
+      document.getElementById("historyModal").classList.add("hidden");
+    }
+
+    function openNewOutletModal() {
+      document.getElementById("newOutletModal").classList.remove("hidden");
+    }
+
+    function closeNewOutletModal() {
+      document.getElementById("newOutletModal").classList.add("hidden");
+      document.getElementById("regShopName").value = "";
+      document.getElementById("regOwnerName").value = "";
+      document.getElementById("regPhone").value = "";
+      document.getElementById("regBeat").value = "";
+      selectedRegPhotoFile = null;
+      document.getElementById("regPhotoPreview").src = "";
+      document.getElementById("regPhotoPreview").classList.add("hidden");
+      document.getElementById("regPhotoStatus").innerHTML = "Photo optional";
+      document.getElementById("regPhotoStatus").className = "text-[10px] text-gray-500 block mt-1";
+    }
+
+    function previewRegPhoto(event) {
+      const file = event.target.files[0];
+      if (file) {
+        selectedRegPhotoFile = file;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById("regPhotoPreview");
+          img.src = e.target.result;
+          img.classList.remove("hidden");
+          document.getElementById("regPhotoStatus").innerHTML = "✅ Shop Photo Attached";
+          document.getElementById("regPhotoStatus").className = "text-[10px] text-green-600 font-bold block mt-1";
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    async function saveNewOutlet() {
+      const salesman = document.getElementById("salesman").value.trim() || "Salesman";
+      const name = document.getElementById("regShopName").value.trim();
+      const owner = document.getElementById("regOwnerName").value.trim() || "-";
+      const phone = document.getElementById("regPhone").value.trim();
+      const beat = document.getElementById("regBeat").value.trim();
+      const type = document.getElementById("regType").value;
+      const freezer = document.getElementById("regFreezer").value;
+
+      if (!name || !beat || !phone) {
+        alert("Shop Name, Beat, and Mobile Number are required!");
+        return;
+      }
+
+      const saveBtn = document.getElementById("saveOutletBtn");
+      saveBtn.disabled = true;
+      saveBtn.innerText = "⏳ Saving...";
+
+      const coords = await getGPSCoordinates();
+      const mapsUrl = coords ? `https://maps.google.com/?q=${coords.lat},${coords.lng}` : "Location Blocked";
+
+      const newOutletObj = { name, beat, phone, owner, type, freezer, maps: mapsUrl };
+      savedOutlets.push(newOutletObj);
+      localStorage.setItem('craveman_outlets', JSON.stringify(savedOutlets));
+      populateOutletDropdown();
+
+      document.getElementById("shopName").value = name;
+      document.getElementById("beat").value = beat;
+
+      const regMsg = `*🏪 NEW OUTLET REGISTRATION - CRAVEMAN*\n` +
+        `*Shaik Enterprises*\n` +
+        `--------------------------------\n` +
+        `*Salesman:* ${salesman}\n` +
+        `*Shop Name:* ${name}\n` +
+        `*Owner Name:* ${owner}\n` +
+        `*Mobile Number:* ${phone}\n` +
+        `*Beat / Route:* ${beat}\n` +
+        `*Outlet Type:* ${type}\n` +
+        `*Freezer Setup:* ${freezer}\n` +
+        `*📍 Exact Location:* ${mapsUrl}\n` +
+        `*Date:* ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}\n` +
+        `--------------------------------`;
+
+      saveBtn.disabled = false;
+      saveBtn.innerText = "Save Outlet & Share";
+      closeNewOutletModal();
+
+      if (selectedRegPhotoFile && navigator.canShare && navigator.canShare({ files: [selectedRegPhotoFile] })) {
+        try {
+          await navigator.share({
+            files: [selectedRegPhotoFile],
+            text: regMsg,
+            title: 'New Outlet Added'
+          });
+          return;
+        } catch(e) {}
+      }
+
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(regMsg)}`, '_blank');
+    }
+
+    function calculateDistanceKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+
+    function updateAttendanceUI() {
+      const badge = document.getElementById("dutyBadge");
+      const inText = document.getElementById("inTimeText");
+      const outText = document.getElementById("outTimeText");
+      const inBtn = document.getElementById("punchInBtn");
+      const outBtn = document.getElementById("punchOutBtn");
+
+      if (attendanceState.salesman) {
+        document.getElementById("salesman").value = attendanceState.salesman;
+      }
+
+      inText.innerText = attendanceState.inTime || "--:--";
+      outText.innerText = attendanceState.outTime || "--:--";
+
+      if (!attendanceState.hasPunchedIn) {
+        badge.innerText = "NOT STARTED ⚪";
+        badge.className = "text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700";
+        inBtn.disabled = false;
+        outBtn.disabled = true;
+      } else if (attendanceState.hasPunchedIn && !attendanceState.hasPunchedOut) {
+        badge.innerText = "ON DUTY 🟢";
+        badge.className = "text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-green-100 text-green-700";
+        inBtn.disabled = true;
+        outBtn.disabled = false;
+      } else if (attendanceState.hasPunchedOut) {
+        badge.innerText = "DUTY ENDED 🔴";
+        badge.className = "text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-red-100 text-red-700";
+        inBtn.disabled = true;
+        outBtn.disabled = true;
+      }
+
+      localStorage.setItem('craveman_attendance', JSON.stringify(attendanceState));
+    }
+
+    function previewSelfie(event) {
+      const file = event.target.files[0];
+      if (file) {
+        selectedSelfieFile = file;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById("selfiePreview");
+          img.src = e.target.result;
+          img.classList.remove("hidden");
+          document.getElementById("selfieStatus").innerHTML = "✅ Selfie Ready";
+          document.getElementById("selfieStatus").className = "text-[11px] text-green-600 font-bold";
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    async function handlePunchIn() {
+      const salesman = document.getElementById("salesman").value.trim();
+      if (!salesman) {
+        alert("Please enter Salesman Name first.");
+        return;
+      }
+      if (!selectedSelfieFile) {
+        alert("Please capture your Attendance Selfie first.");
+        return;
+      }
+
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            dayData.lastCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+            localStorage.setItem('craveman_day_stats', JSON.stringify(dayData));
+          },
+          () => {},
+          { enableHighAccuracy: true, timeout: 5000 }
+        );
+      }
+
+      const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      const todayKey = getTodayKey();
+
+      attendanceState.hasPunchedIn = true;
+      attendanceState.hasPunchedOut = false;
+      attendanceState.inTime = currentTime;
+      attendanceState.salesman = salesman;
+      attendanceState.date = todayKey;
+      updateAttendanceUI();
+
+      attendanceHistory[todayKey] = {
+        punchedIn: true,
+        inTime: currentTime,
+        outTime: null,
+        salesman: salesman
+      };
+      localStorage.setItem('craveman_attendance_history', JSON.stringify(attendanceHistory));
+
+      const punchMsg = `*🟢 ATTENDANCE PUNCH IN (DUTY START)*\n` +
+        `*Craveman Ice Cream - Shaik Enterprises*\n` +
+        `--------------------------------\n` +
+        `*Salesman:* ${salesman}\n` +
+        `*Duty Status:* ON DUTY\n` +
+        `*Punch IN Time:* ${currentTime}\n` +
+        `*Date:* ${new Date().toLocaleDateString()}\n` +
+        `*Selfie Proof:* Attached below\n` +
+        `--------------------------------`;
+
+      if (navigator.canShare && navigator.canShare({ files: [selectedSelfieFile] })) {
+        try {
+          await navigator.share({
+            files: [selectedSelfieFile],
+            text: punchMsg,
+            title: 'Duty IN Selfie'
+          });
+          return;
+        } catch(e) {}
+      }
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(punchMsg)}`, '_blank');
+    }
+
+    async function handlePunchOut() {
+      const salesman = document.getElementById("salesman").value.trim() || attendanceState.salesman;
+      if (!confirm("Are you sure you want to end your duty (Punch OUT)?")) {
+        return;
+      }
+
+      const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      const todayKey = getTodayKey();
+
+      attendanceState.hasPunchedOut = true;
+      attendanceState.outTime = currentTime;
+      updateAttendanceUI();
+
+      if (attendanceHistory[todayKey]) {
+        attendanceHistory[todayKey].outTime = currentTime;
+        localStorage.setItem('craveman_attendance_history', JSON.stringify(attendanceHistory));
+      }
+
+      const punchOutMsg = `*🔴 ATTENDANCE PUNCH OUT (DUTY END)*\n` +
+        `*Craveman Ice Cream - Shaik Enterprises*\n` +
+        `--------------------------------\n` +
+        `*Salesman:* ${salesman}\n` +
+        `*Punch IN Time:* ${attendanceState.inTime || "N/A"}\n` +
+        `*Punch OUT Time:* ${currentTime}\n` +
+        `*Total Outlets Visited:* ${dayData.visits}\n` +
+        `*Total Boxes Booked:* ${dayData.boxes} Boxes\n` +
+        `*Total Sales Value:* ₹${dayData.sales.toFixed(0)}\n` +
+        `*Total Cash Collected:* ₹${(dayData.totalCash || 0).toFixed(0)}\n` +
+        `*Total UPI Received:* ₹${(dayData.totalUpi || 0).toFixed(0)}\n` +
+        `*Total Distance Covered:* ${(dayData.kmTravelled || 0).toFixed(2)} KM\n` +
+        `*Date:* ${new Date().toLocaleDateString()}\n` +
+        `--------------------------------`;
+
+      if (selectedSelfieFile && navigator.canShare && navigator.canShare({ files: [selectedSelfieFile] })) {
+        try {
+          await navigator.share({
+            files: [selectedSelfieFile],
+            text: punchOutMsg,
+            title: 'Duty OUT Selfie'
+          });
+          return;
+        } catch(e) {}
+      }
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(punchOutMsg)}`, '_blank');
+    }
+
+    function previewShopPhoto(event) {
+      const file = event.target.files[0];
+      if (file) {
+        selectedShopPhotoFile = file;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById("photoPreview");
+          img.src = e.target.result;
+          img.classList.remove("hidden");
+          document.getElementById("photoStatus").innerHTML = "✅ Shop Photo Ready";
+          document.getElementById("photoStatus").className = "text-[11px] text-green-600 font-bold mt-1.5";
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateDashboardUI() {
+      document.getElementById("statVisits").innerText = dayData.visits;
+      document.getElementById("statOrders").innerText = dayData.orders;
+      document.getElementById("statBoxes").innerText = dayData.boxes;
+      document.getElementById("statSales").innerText = dayData.sales.toFixed(0);
+      document.getElementById("statKm").innerText = (dayData.kmTravelled || 0).toFixed(1);
+      localStorage.setItem('craveman_day_stats', JSON.stringify(dayData));
+    }
+
+    const productListEl = document.getElementById("productList");
+
+    function renderList(items) {
+      productListEl.innerHTML = "";
+      items.forEach(p => {
+        const vanObj = vanStockLoaded[p.id];
+        const loaded = vanObj ? vanObj.loaded : 0;
+        const sold = vanObj ? vanObj.sold : 0;
+        const balance = Math.max(0, loaded - sold);
+
+        const row = document.createElement("div");
+        row.className = "pt-2 pb-1 flex items-center justify-between text-xs";
+        row.id = `item_row_${p.id}`;
+        row.innerHTML = `
+          <div class="w-3/5 pr-1">
+            <div class="font-semibold text-gray-800">${p.name}</div>
+            <div class="text-[10px] text-gray-500">${p.pack} pcs/box | Box: <span class="text-emerald-700 font-bold">₹${p.boxRate}</span></div>
+            <div class="text-[9px] font-bold ${balance > 0 ? 'text-indigo-600' : 'text-rose-600'}">Van Stock Left: ${balance} bxs</div>
+          </div>
+          <div class="w-2/5 flex items-center justify-end gap-1.5">
+            <input type="number" min="0" max="${balance}" value="0" id="qty_${p.id}" oninput="calculateTotal()" 
+              class="w-14 border rounded p-1 text-center font-bold bg-gray-50 focus:bg-white text-xs">
+            <span class="text-[11px] font-bold text-gray-700 w-12 text-right">₹<span id="sub_${p.id}">0</span></span>
+          </div>
+        `;
+        productListEl.appendChild(row);
+      });
+    }
+
+    renderList(products);
+    populateOutletDropdown();
+    updateDashboardUI();
+    updateAttendanceUI();
+    updateVanStockSummaryUI();
+
+    function toggleOrderSection(isOrder) {
+      document.getElementById("orderBookingSection").style.display = isOrder ? "block" : "none";
+      document.getElementById("noOrderReasonBox").style.display = isOrder ? "none" : "block";
+    }
+
+    function filterProducts() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      products.forEach(p => {
+        const row = document.getElementById(`item_row_${p.id}`);
+        if (!row) return;
+        const matches = p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q);
+        row.style.display = matches ? "flex" : "none";
+      });
+    }
+
+    function calculateTotal() {
+      let grandTotal = 0;
+      products.forEach(p => {
+        const input = document.getElementById(`qty_${p.id}`);
+        const vanObj = vanStockLoaded[p.id];
+        const loaded = vanObj ? vanObj.loaded : 0;
+        const sold = vanObj ? vanObj.sold : 0;
+        const balance = Math.max(0, loaded - sold);
+
+        let boxes = input ? (parseInt(input.value) || 0) : 0;
+        if (boxes > balance) {
+          alert(`Warning: Only ${balance} boxes left in van stock for ${p.name}!`);
+          boxes = balance;
+          input.value = balance;
+        }
+
+        const sub = boxes * p.boxRate;
+        const subEl = document.getElementById(`sub_${p.id}`);
+        if (subEl) subEl.innerText = sub.toFixed(0);
+        grandTotal += sub;
+      });
+      document.getElementById("grandTotal").innerText = grandTotal.toFixed(2);
+      calculateBalance();
+    }
+
+    function calculateBalance() {
+      const total = parseFloat(document.getElementById("grandTotal").innerText) || 0;
+      const cash = parseFloat(document.getElementById("cashPaid").value) || 0;
+      const upi = parseFloat(document.getElementById("upiPaid").value) || 0;
+      const paidTotal = cash + upi;
+      document.getElementById("balanceAmount").innerText = Math.max(0, total - paidTotal).toFixed(2);
+    }
+
+    function showPaymentQrModal() {
+      const total = parseFloat(document.getElementById("grandTotal").innerText) || 0;
+      if (total <= 0) {
+        alert("Please enter product quantity first to generate bill amount.");
+        return;
+      }
+      document.getElementById("qrBillAmount").innerText = total.toFixed(2);
+      const upiUri = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&am=${total.toFixed(2)}&cu=INR`;
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
+      document.getElementById("qrImage").src = qrApiUrl;
+      document.getElementById("qrModal").classList.remove("hidden");
+    }
+
+    function closePaymentQrModal() {
+      document.getElementById("qrModal").classList.add("hidden");
+    }
+
+    function getGPSCoordinates() {
+      return new Promise((resolve) => {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+            () => resolve(null),
+            { enableHighAccuracy: true, timeout: 6000 }
+          );
+        } else {
+          resolve(null);
+        }
+      });
+    }
+
+    function openRetailerBillModal(billData) {
+      lastGeneratedBill = billData;
+      document.getElementById("billSlipNo").innerText = billData.billNo;
+      document.getElementById("billSlipDate").innerText = billData.date;
+      document.getElementById("billSlipTime").innerText = billData.time;
+      document.getElementById("billSlipShop").innerText = billData.shop;
+      document.getElementById("billSlipBeat").innerText = billData.beat;
+      document.getElementById("billSlipSalesman").innerText = billData.salesman;
+      document.getElementById("billSlipBoxes").innerText = billData.boxes;
+      document.getElementById("billSlipTotal").innerText = billData.total.toFixed(2);
+      document.getElementById("billSlipCash").innerText = billData.cash.toFixed(2);
+      document.getElementById("billSlipUpi").innerText = billData.upi.toFixed(2);
+      document.getElementById("billSlipBalance").innerText = billData.balance.toFixed(2);
+
+      const itemsContainer = document.getElementById("billSlipItemsList");
+      itemsContainer.innerHTML = "";
+      billData.itemsList.forEach(it => {
+        const row = document.createElement("div");
+        row.className = "flex justify-between";
+        row.innerHTML = `<span>${it.name}</span><span>${it.qty} x ${it.rate} = ₹${it.sub}</span>`;
+        itemsContainer.appendChild(row);
+      });
+
+      document.getElementById("retailerBillModal").classList.remove("hidden");
+    }
+
+    function closeRetailerBillModal() {
+      document.getElementById("retailerBillModal").classList.add("hidden");
+    }
+
+    function shareBillSlipToRetailer() {
+      if (!lastGeneratedBill) return;
+      const b = lastGeneratedBill;
+
+      let itemsFormatted = "";
+      b.itemsList.forEach((it, idx) => {
+        itemsFormatted += `${idx + 1}. ${it.name}: ${it.qty} Box x ₹${it.rate} = ₹${it.sub}\n`;
+      });
+
+      const slipMsg = `*🧾 CASH/CREDIT MEMO - CRAVEMAN ICE CREAM*\n` +
+        `*Shaik Enterprises, Adoni*\n` +
+        `--------------------------------\n` +
+        `*Invoice No:* ${b.billNo}\n` +
+        `*Date:* ${b.date} | *Time:* ${b.time}\n` +
+        `*Shop Name:* ${b.shop}\n` +
+        `*Beat / Route:* ${b.beat}\n` +
+        `--------------------------------\n` +
+        `*ITEMS DELIVERED:*\n${itemsFormatted}` +
+        `--------------------------------\n` +
+        `*Total Boxes:* ${b.boxes} Boxes\n` +
+        `*Total Bill Amount:* ₹${b.total.toFixed(2)}\n` +
+        `*💵 Cash Paid:* ₹${b.cash.toFixed(2)}\n` +
+        `*📱 UPI Paid:* ₹${b.upi.toFixed(2)}\n` +
+        `*Balance Due:* ₹${b.balance.toFixed(2)}\n` +
+        `--------------------------------\n` +
+        `*Delivered by:* ${b.salesman}\n` +
+        `Thank you for your business! 🙏`;
+
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(slipMsg)}`, '_blank');
+    }
+
+    async function saveAndSendVisit() {
+      const salesman = document.getElementById("salesman").value.trim() || "Salesman";
+      const shop = document.getElementById("shopName").value.trim();
+      const beat = document.getElementById("beat").value.trim() || "-";
+      const isOrder = document.querySelector('input[name="visitType"]:checked').value === 'order';
+
+      if (!shop) {
+        alert("Please select or enter Shop / Outlet name.");
+        return;
+      }
+
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.disabled = true;
+      submitBtn.innerText = "⏳ Preparing...";
+
+      const coords = await getGPSCoordinates();
+      if (coords) {
+        if (dayData.lastCoords) {
+          const dist = calculateDistanceKm(dayData.lastCoords.lat, dayData.lastCoords.lng, coords.lat, coords.lng);
+          if (dist > 0.015) {
+            dayData.kmTravelled = (dayData.kmTravelled || 0) + dist;
+          }
+        }
+        dayData.lastCoords = coords;
+      }
+
+      let msg = "";
+      dayData.visits += 1;
+      const mapsUrl = coords ? `https://maps.google.com/?q=${coords.lat},${coords.lng}` : "Location Blocked";
+      const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      const currentDate = new Date().toLocaleDateString();
+
+      if (!isOrder) {
+        const reason = document.getElementById("noOrderReason").value;
+        const visitData = { date: currentDate, time: currentTime, salesman, shop, beat, type: "NO_ORDER", boxes: 0, total: 0, cash: 0, upi: 0, balance: 0, maps: mapsUrl, reason };
+        dayData.history.push(visitData);
+
+        msg = `*FIELD VISIT (NO ORDER) - CRAVEMAN*\n` +
+              `*Shaik Enterprises*\n` +
+              `--------------------------------\n` +
+              `*Salesman:* ${salesman}\n` +
+              `*Shop:* ${shop}\n` +
+              `*Beat:* ${beat}\n` +
+              `*Status:* ❌ No Order Taken\n` +
+              `*Reason:* ${reason}\n` +
+              `*📍 Location:* ${mapsUrl}\n` +
+              `*Total Day KM:* ${(dayData.kmTravelled || 0).toFixed(2)} KM\n` +
+              `*Time:* ${currentTime}`;
+
+        updateDashboardUI();
+        submitBtn.disabled = false;
+        submitBtn.innerText = "🚀 Submit Order & Generate Bill Slip";
+        clearCurrentForm();
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+      } else {
+        let itemsText = "";
+        let itemsListArray = [];
+        let totalBoxes = 0;
+        let billTotal = parseFloat(document.getElementById("grandTotal").innerText) || 0;
+        let cash = parseFloat(document.getElementById("cashPaid").value) || 0;
+        let upi = parseFloat(document.getElementById("upiPaid").value) || 0;
+        let bal = parseFloat(document.getElementById("balanceAmount").innerText) || 0;
+
+        products.forEach(p => {
+          const input = document.getElementById(`qty_${p.id}`);
+          const boxes = input ? (parseInt(input.value) || 0) : 0;
+          if (boxes > 0) {
+            totalBoxes += boxes;
+            const sub = boxes * p.boxRate;
+            itemsText += `📦 ${p.name}: ${boxes} Box = ₹${sub.toFixed(0)}\n`;
+            itemsListArray.push({ name: p.name, qty: boxes, rate: p.boxRate, sub: sub.toFixed(0) });
+
+            if (!vanStockLoaded[p.id]) vanStockLoaded[p.id] = { loaded: 0, sold: 0 };
+            vanStockLoaded[p.id].sold += boxes;
+          }
+        });
+
+        if (totalBoxes === 0) {
+          alert("Please enter at least 1 box quantity for order booking.");
+          submitBtn.disabled = false;
+          submitBtn.innerText = "🚀 Submit Order & Generate Bill Slip";
+          return;
+        }
+
+        localStorage.setItem('craveman_van_stock', JSON.stringify(vanStockLoaded));
+        updateVanStockSummaryUI();
+        renderList(products);
+
+        dayData.orders += 1;
+        dayData.boxes += totalBoxes;
+        dayData.sales += billTotal;
+        dayData.totalCash = (dayData.totalCash || 0) + cash;
+        dayData.totalUpi = (dayData.totalUpi || 0) + upi;
+
+        const billNo = "CRV-" + Math.floor(1000 + Math.random() * 9000);
+        const orderData = { 
+          billNo, 
+          date: currentDate, 
+          time: currentTime, 
+          salesman, 
+          shop, 
+          beat, 
+          type: "ORDER", 
+          boxes: totalBoxes, 
+          total: billTotal, 
+          cash, 
+          upi, 
+          balance: bal, 
+          maps: mapsUrl, 
+          itemsList: itemsListArray,
+          items: itemsText 
+        };
+
+        dayData.history.push(orderData);
+        updateDashboardUI();
+
+        submitBtn.disabled = false;
+        submitBtn.innerText = "🚀 Submit Order & Generate Bill Slip";
+
+        openRetailerBillModal(orderData);
+        clearCurrentForm();
+      }
+    }
+
+    function sendDayEndReport() {
+      const salesman = document.getElementById("salesman").value.trim() || "Salesman";
+      const strikeRate = dayData.visits > 0 ? ((dayData.orders / dayData.visits) * 100).toFixed(0) : 0;
+
+      let historyText = "";
+      dayData.history.forEach((h, i) => {
+        if (h.type === "ORDER") {
+          historyText += `${i+1}. ${h.shop}: ₹${h.total.toFixed(0)} (${h.boxes} bxs) [Cash: ₹${h.cash} | UPI: ₹${h.upi}]\n`;
+        } else {
+          historyText += `${i+1}. ${h.shop}: ❌ (${h.reason})\n`;
+        }
+      });
+
+      const reportMsg = `*📊 DAILY SALES REPORT (DSR)*\n` +
+        `*CRAVEMAN ICE CREAM - Shaik Enterprises*\n` +
+        `--------------------------------\n` +
+        `*Salesman:* ${salesman}\n` +
+        `*Duty IN:* ${attendanceState.inTime || "N/A"} | *OUT:* ${attendanceState.outTime || "N/A"}\n` +
+        `*Total KM Travelled:* ${(dayData.kmTravelled || 0).toFixed(2)} KM\n` +
+        `*Date:* ${new Date().toLocaleDateString()}\n` +
+        `--------------------------------\n` +
+        `*Total Outlets Visited:* ${dayData.visits}\n` +
+        `*Productive Orders:* ${dayData.orders}\n` +
+        `*Order Conversion Rate:* ${strikeRate}%\n` +
+        `*Total Boxes Sold:* ${dayData.boxes} Boxes\n` +
+        `*Total Sales Value:* ₹${dayData.sales.toFixed(2)}\n` +
+        `*💵 Total Cash Collected:* ₹${(dayData.totalCash || 0).toFixed(2)}\n` +
+        `*📱 Total UPI Received:* ₹${(dayData.totalUpi || 0).toFixed(2)}\n` +
+        `--------------------------------\n` +
+        `*VISIT LOG:*\n${historyText || "No visits logged today"}\n` +
+        `--------------------------------`;
+
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(reportMsg)}`, '_blank');
+    }
+
+    function clearCurrentForm() {
+      document.getElementById("shopName").value = "";
+      document.getElementById("beat").value = "";
+      document.getElementById("outletDropdown").value = "";
+      document.getElementById("deleteSelectedOutletBtn").classList.add("hidden");
+      document.getElementById("cashPaid").value = "0";
+      document.getElementById("upiPaid").value = "0";
+      document.getElementById("cameraInput").value = "";
+      selectedShopPhotoFile = null;
+      document.getElementById("photoPreview").src = "";
+      document.getElementById("photoPreview").classList.add("hidden");
+      document.getElementById("photoStatus").innerHTML = "Photo not taken";
+      document.getElementById("photoStatus").className = "text-[11px] text-gray-500 mt-1.5";
+
+      products.forEach(p => {
+        const input = document.getElementById(`qty_${p.id}`);
+        const sub = document.getElementById(`sub_${p.id}`);
+        if (input) input.value = "0";
+        if (sub) sub.innerText = "0";
+      });
+      document.getElementById("grandTotal").innerText = "0.00";
+      document.getElementById("balanceAmount").innerText = "0.00";
+      document.getElementById("searchInput").value = "";
+      filterProducts();
+    }
+
+    function resetDayData() {
+      if (confirm("Are you sure you want to reset today's data? All stats, distance, cash/upi collections, and attendance will be cleared.")) {
+        dayData = { visits: 0, orders: 0, boxes: 0, sales: 0, totalCash: 0, totalUpi: 0, kmTravelled: 0.0, lastCoords: null, history: [] };
+        attendanceState = { hasPunchedIn: false, hasPunchedOut: false, inTime: null, outTime: null, salesman: "", date: null };
+        selectedSelfieFile = null;
+        document.getElementById("selfiePreview").src = "";
+        document.getElementById("selfiePreview").classList.add("hidden");
+        document.getElementById("selfieStatus").innerHTML = "Selfie required";
+        document.getElementById("selfieStatus").className = "text-[11px] text-gray-500 font-medium";
+        updateDashboardUI();
+        updateAttendanceUI();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+09.05 1:19 AM
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Craveman Owner & Distributor Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-3 max-w-md mx-auto text-gray-800 font-sans pb-28">
+
+  <div class="bg-gradient-to-r from-slate-800 via-indigo-950 to-slate-900 text-white p-3.5 rounded-2xl shadow-lg mb-3 text-center relative overflow-hidden">
+    <div class="flex items-center justify-center gap-3">
+      <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md p-1 border-2 border-orange-400 shrink-0">
+        <svg viewBox="0 0 100 100" class="w-10 h-10">
+          <circle cx="50" cy="52" r="31" fill="#f97316" stroke="#0f172a" stroke-width="2.5" />
+          <ellipse cx="40" cy="48" rx="5" ry="7" fill="#1e293b" />
+          <ellipse cx="60" cy="48" rx="5" ry="7" fill="#1e293b" />
+          <path d="M40 58 Q50 70 60 58 Z" fill="#881337" />
+        </svg>
+      </div>
+      <div class="text-left">
+        <h1 class="text-xl font-black tracking-wide uppercase leading-none text-white">OWNER DASHBOARD</h1>
+        <p class="text-[9.5px] font-bold text-orange-300 tracking-wider uppercase mt-1">Shaik Enterprises — Admin Portal</p>
+      </div>
+    </div>
+    <div class="mt-2 pt-2 border-t border-white/10 flex justify-between items-center text-[11px] px-1">
+      <span class="font-extrabold text-yellow-300 uppercase tracking-wider">Live Sync Mode</span>
+      <button onclick="loadAdminData()" class="bg-white/20 hover:bg-white/30 text-white px-2.5 py-0.5 rounded-full font-bold text-[10px] active:scale-95 transition"> Refresh Data</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-2 mb-3">
+    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-200 text-center">
+      <div class="text-[10px] font-bold text-gray-500 uppercase">Total Day Sales</div>
+      <div id="adminTotalSales" class="text-lg font-black text-emerald-700 mt-1">₹0</div>
+    </div>
+    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-200 text-center">
+      <div class="text-[10px] font-bold text-gray-500 uppercase">Total Boxes Sold</div>
+      <div id="adminTotalBoxes" class="text-lg font-black text-indigo-700 mt-1">0 Bxs</div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-1.5 mb-3 text-center">
+    <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100">
+      <div class="text-[9px] font-bold text-blue-600 uppercase">Visits</div>
+      <div id="adminVisits" class="text-sm font-black text-blue-900 mt-0.5">0</div>
+    </div>
+    <div class="bg-green-50 p-2.5 rounded-xl border border-green-100">
+      <div class="text-[9px] font-bold text-green-600 uppercase">Orders</div>
+      <div id="adminOrders" class="text-sm font-black text-green-900 mt-0.5">0</div>
+    </div>
+    <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-100">
+      <div class="text-[9px] font-bold text-amber-600 uppercase">Distance</div>
+      <div id="adminKm" class="text-xs font-black text-amber-900 mt-1">0.0 KM</div>
+    </div>
+  </div>
+
+  <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 mb-3 space-y-2">
+    <div class="text-xs font-black text-gray-700 uppercase tracking-wide border-b pb-1.5 flex justify-between items-center">
+      <span> Collection Breakdown</span>
+      <span class="text-[10px] text-gray-400 font-normal">Cash + UPI</span>
+    </div>
+    <div class="grid grid-cols-2 gap-2 text-center">
+      <div class="bg-emerald-50 p-2 rounded-xl border border-emerald-100">
+        <div class="text-[10px] font-bold text-emerald-700 uppercase">Total Cash</div>
+        <div id="adminCash" class="text-sm font-black text-emerald-900 mt-0.5">₹0</div>
+      </div>
+      <div class="bg-blue-50 p-2 rounded-xl border border-blue-100">
+        <div class="text-[10px] font-bold text-blue-700 uppercase">Total UPI</div>
+        <div id="adminUpi" class="text-sm font-black text-blue-900 mt-0.5">₹0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 mb-3 space-y-2">
+    <div class="text-xs font-black text-gray-700 uppercase tracking-wide border-b pb-1.5 flex justify-between items-center">
+      <span> Van Stock Status</span>
+      <button onclick="openGodownLoadModal()" class="text-[10px] bg-indigo-600 text-white font-bold px-2.5 py-1 rounded-lg active:scale-95 transition">Godown Dispatch ➕</button>
+    </div>
+    <div id="adminVanStockSummary" class="text-xs font-semibold text-gray-600">
+      Loading stock status...
+    </div>
+  </div>
+
+  <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 space-y-2">
+    <div class="text-xs font-black text-gray-700 uppercase tracking-wide border-b pb-1.5 flex justify-between items-center">
+      <span> Live Sales & Visit Feed</span>
+      <button onclick="clearAdminData()" class="text-[10px] text-red-600 underline font-semibold">Reset Data</button>
+    </div>
+    <div id="adminHistoryFeed" class="space-y-2 max-h-96 overflow-y-auto pr-1">
+      <p class="text-xs text-gray-400 text-center py-4">No records found from salesman yet.</p>
+    </div>
+  </div>
+
+  <div id="godownModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-3">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 max-h-[90vh] flex flex-col">
+      <div class="border-b pb-2 flex justify-between items-center">
+        <div>
+          <h3 class="font-black text-sm text-gray-800 uppercase tracking-wide">Godown Van Stock Dispatch</h3>
+          <p class="text-[10px] text-gray-500">Assign opening stock to salesman van</p>
+        </div>
+        <button onclick="closeGodownLoadModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold">×</button>
+      </div>
+
+      <div id="godownStockList" class="divide-y divide-gray-100 overflow-y-auto pr-1 flex-1 space-y-1.5 text-xs"></div>
+
+      <div class="pt-2 border-t">
+        <button onclick="saveGodownDispatch()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow">
+           Dispatch Stock to Van
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menuData = [
+      { id: 1, name: "Cup Vanilla 50ml", pack: 48, mrp: 5 },
+      { id: 2, name: "Cup Strawberry 50ml", pack: 48, mrp: 5 },
+      { id: 3, name: "Cup Butterscotch 50ml", pack: 48, mrp: 5 },
+      { id: 4, name: "Cup Chocolate 50ml", pack: 48, mrp: 5 },
+      { id: 5, name: "Cup Vanilla 70ml", pack: 36, mrp: 10 },
+      { id: 6, name: "Cup Butterscotch 70ml", pack: 36, mrp: 10 },
+      { id: 7, name: "Cup Chocolate 70ml", pack: 36, mrp: 10 },
+      { id: 8, name: "Candy Orange 35ml", pack: 48, mrp: 5 },
+      { id: 9, name: "Candy Mango 60ml", pack: 36, mrp: 10 },
+      { id: 10, name: "Junior Chocobar 40ml", pack: 40, mrp: 10 },
+      { id: 11, name: "Big Chocobar 60ml", pack: 30, mrp: 20 },
+      { id: 12, name: "Med Cone Vanilla 60ml", pack: 24, mrp: 20 },
+      { id: 13, name: "Med Cone Butterscotch 60ml", pack: 24, mrp: 20 },
+      { id: 14, name: "Big Cone Chocolate 110ml", pack: 20, mrp: 30 },
+      { id: 15, name: "Kulfi Stick Malai Mawa 60ml", pack: 30, mrp: 20 }
+    ];
+
+    let adminVanStock = JSON.parse(localStorage.getItem('craveman_van_stock')) || {};
+
+    function loadAdminData() {
+      const stats = JSON.parse(localStorage.getItem('craveman_day_stats')) || {
+        visits: 0, orders: 0, boxes: 0, sales: 0, totalCash: 0, totalUpi: 0, kmTravelled: 0, history: []
+      };
+
+      document.getElementById("adminTotalSales").innerText = `₹${stats.sales.toFixed(0)}`;
+      document.getElementById("adminTotalBoxes").innerText = `${stats.boxes} Bxs`;
+      document.getElementById("adminVisits").innerText = stats.visits;
+      document.getElementById("adminOrders").innerText = stats.orders;
+      document.getElementById("adminKm").innerText = `${(stats.kmTravelled || 0).toFixed(1)} KM`;
+      document.getElementById("adminCash").innerText = `₹${(stats.totalCash || 0).toFixed(0)}`;
+      document.getElementById("adminUpi").innerText = `₹${(stats.totalUpi || 0).toFixed(0)}`;
+
+      // Van stock summary
+      adminVanStock = JSON.parse(localStorage.getItem('craveman_van_stock')) || {};
+      let totalLoaded = 0;
+      let totalBalance = 0;
+      Object.keys(adminVanStock).forEach(id => {
+        totalLoaded += adminVanStock[id].loaded || 0;
+        totalBalance += Math.max(0, (adminVanStock[id].loaded || 0) - (adminVanStock[id].sold || 0));
+      });
+
+      document.getElementById("adminVanStockSummary").innerHTML = totalLoaded === 0 ? 
+        `<span class="text-rose-600 font-bold">Van stock not assigned yet. Click Godown Dispatch.</span>` :
+        ` Total Loaded: <span class="font-black text-gray-900">${totalLoaded} bxs</span> | Remaining in Van: <span class="font-black text-indigo-700">${totalBalance} bxs</span>`;
+
+      // History Feed
+      const feed = document.getElementById("adminHistoryFeed");
+      feed.innerHTML = "";
+
+      if (!stats.history || stats.history.length === 0) {
+        feed.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">No records found from salesman yet.</p>`;
+      } else {
+        stats.history.slice().reverse().forEach((h) => {
+          const card = document.createElement("div");
+          card.className = "p-2.5 rounded-xl border text-xs bg-gray-50";
+
+          if (h.type === "ORDER") {
+            card.className += " border-emerald-200 bg-emerald-50/40";
+            card.innerHTML = `
+              <div class="flex justify-between items-start font-black text-gray-800">
+                <span>${h.shop}</span>
+                <span class="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">₹${h.total}</span>
+              </div>
+              <div class="text-[10px] text-gray-500 mt-0.5">Salesman: ${h.salesman} •  ${h.time}</div>
+              <div class="text-[11px] font-bold text-indigo-700 mt-1">Boxes: ${h.boxes} bxs | Cash: ₹${h.cash} | UPI: ₹${h.upi}</div>
+            `;
+          } else {
+            card.className += " border-rose-200 bg-rose-50/40";
+            card.innerHTML = `
+              <div class="flex justify-between items-start font-black text-gray-800">
+                <span>${h.shop}</span>
+                <span class="text-[10px] text-rose-700 bg-rose-100 px-2 py-0.5 rounded">NO ORDER</span>
+              </div>
+              <div class="text-[10px] text-gray-500 mt-0.5">Salesman: ${h.salesman} •  ${h.time}</div>
+              <div class="text-[11px] font-semibold text-gray-700 mt-1">Reason: ${h.reason}</div>
+            `;
+          }
+          feed.appendChild(card);
+        });
+      }
+    }
+
+    function openGodownLoadModal() {
+      const list = document.getElementById("godownStockList");
+      list.innerHTML = "";
+
+      menuData.forEach(p => {
+        const current = adminVanStock[p.id] ? adminVanStock[p.id].loaded : 0;
+        const row = document.createElement("div");
+        row.className = "p-2 bg-gray-50 rounded-xl border flex items-center justify-between";
+        row.innerHTML = `
+          <div class="w-3/5 pr-1 font-semibold text-gray-800">${p.name}</div>
+          <div class="w-2/5 flex items-center justify-end">
+            <input type="number" min="0" value="${current}" id="godown_load_${p.id}" class="w-16 border rounded p-1 text-center font-bold text-xs bg-white">
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      document.getElementById("godownModal").classList.remove("hidden");
+    }
+
+    function closeGodownLoadModal() {
+      document.getElementById("godownModal").classList.add("hidden");
+    }
+
+    function saveGodownDispatch() {
+      menuData.forEach(p => {
+        const input = document.getElementById(`godown_load_${p.id}`);
+        const val = input ? (parseInt(input.value) || 0) : 0;
+        const prevSold = adminVanStock[p.id] ? adminVanStock[p.id].sold : 0;
+
+        adminVanStock[p.id] = { loaded: val, sold: prevSold };
+      });
+
+      localStorage.setItem('craveman_van_stock', JSON.stringify(adminVanStock));
+      loadAdminData();
+      closeGodownLoadModal();
+      alert("Van Stock Dispatched Successfully from Godown!");
+    }
+
+    function clearAdminData() {
+      if (confirm("Reset all day stats and logs?")) {
+        localStorage.removeItem('craveman_day_stats');
+        localStorage.removeItem('craveman_van_stock');
+        loa
